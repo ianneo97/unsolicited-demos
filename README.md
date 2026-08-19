@@ -10,6 +10,11 @@ kumodoc/ -- kumoDoc clinic OS: queue, EMR note (chief complaint / plan), TPA cla
 webmax/ -- WebMax workshop job card: customer + km + last jobs, parts, next service, WhatsApp bill, MyInvois.
 advelsoft/ -- Advelsoft JMB ledger: Residensi Demo units, 30/60/90 aging, August bill, receipt, reminder.
 didi/ -- Didi pharmacy till: OTC vs Rx, FEFO, script label, cash tender and change, shelf after sale.
+flexsoft/ -- Flexsoft retail till: grocery SKUs, SST 6%, cash tender, change, MyInvois.
+mylivin/ -- myLivin' JMB treasurer: Residensi Demo SS7, this month plus late interest, WhatsApp pay link.
+classflow/ -- ClassFlow tadika morning: eight children, face-scan in, fee due, parent ping, August invoice.
+corematter/ -- CoreMatter legal desk: three matters, timer WIP, client vs office account, SST preview.
+flitz/ -- Flitz dispatch: eight PJ drops, two riders, Mark POD, fake grid. No live GPS.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
 
-Next work: [SLICE2.md](./SLICE2.md) (coding brief) and [ranked-slice2.md](./ranked-slice2.md) (scores). P0: webmax, advelsoft, didi. Sell reviews. Do not email.
+Next work: [SLICE3.md](./SLICE3.md) (coding brief) and [ranked-slice3.md](./ranked-slice3.md) (scores). P0: flexsoft, mylivin, classflow, corematter, flitz. Sell reviews. Do not email. Slice 2: [SLICE2.md](./SLICE2.md).
