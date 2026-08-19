@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unsolicited demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="accent-bar" aria-hidden="true"></div>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="mark" href="#top" id="brand">Demo</a>
+      <nav>
+        <a href="#what">What it does</a>
+        <a href="#demo">Demo</a>
+        <a href="#note">Note</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <h1 id="name"></h1>
+        <div class="hero-side">
+          <p class="eyebrow" id="eyebrow"></p>
+          <p class="lede" id="oneliner"></p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#demo">Open the working demo</a>
+            <a class="btn ghost" id="original" target="_blank" rel="noopener noreferrer">Public site</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="what" id="what">
+      <div class="wrap split">
+        <h2>What the product does</h2>
+        <div class="what-body">
+          <p id="sells"></p>
+          <p class="problem-label">On the live site</p>
+          <p class="problem" id="problem"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-sec" id="demo">
+      <div class="wrap">
+        <div class="demo-head">
+          <h2>Working demo</h2>
+          <span class="badge">Sample data</span>
+        </div>
+        <p class="demo-lead" id="demoLead"></p>
+        <div class="demo-frame">
+          <div class="shell" id="demo-root"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="note" id="note">
+      <div class="wrap split">
+        <h2>This is a rebuild of your public site</h2>
+        <p id="noteBody"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <p>Unsolicited demo. Built from the public site.</p>
+      <p>Ian Neo</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <p class="wrap">This page needs JavaScript for the demo. Open it in a browser with JS on.</p>
+  </noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/demo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
