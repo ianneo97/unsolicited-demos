@@ -1,8 +1,8 @@
 # Unsolicited software demos
 Reusable landing plus a thin working demo.
-Same chrome on every site. Copy and the demo module are a data merge, not four unique generated sites.
+Same chrome on every site. Data merge, not unique generated sites.
 Vanilla HTML CSS JS. No build step.
-template/ is the master. Shared files: index.html, css/style.css, js/app.js. Per company: js/config.js and js/demo.js.
+shared/ is the master chrome. Copy shared/template.html into a new folder. Keep only js/config.js and js/demo.js there. Chrome files: shared/css/style.css, shared/js/app.js, shared/js/desk.js.
 clinica/ -- Clinica ERP front-desk: walk-in queue, call next, mark done, consultation invoice plus e-invoice toggle. Three sample patients.
 magsys/ -- MAGSYS module picker (C-MagSys, D-MagSys, H-MagSys) switches todays appointments and one patient chart.
 teera/ -- TEERA.AI bookkeeping inbox: four sample MYR transactions, one-click categorize, tiny P and L, MyInvois stamp.
@@ -15,6 +15,11 @@ mylivin/ -- myLivin' JMB treasurer: Residensi Demo SS7, this month plus late int
 classflow/ -- ClassFlow tadika morning: eight children, face-scan in, fee due, parent ping, August invoice.
 corematter/ -- CoreMatter legal desk: three matters, timer WIP, client vs office account, SST preview.
 flitz/ -- Flitz dispatch: eight PJ drops, two riders, Mark POD, fake grid. No live GPS.
+edriving/ -- E-Driving institute: six candidates, KPP02 thumbprint, fee receipt.
+dclix/ -- D-Clix club morning: eight students, QR in, grading fee, parent ping.
+gussmann/ -- Gussmann haulage: six ROTs, truck assign, POD, invoice. Fake grid.
+yuran/ -- Yuran.my KAFA treasurer: eight payers, overdue total, WhatsApp pay link, reprint.
+thelaundro/ -- theLaundro owner phone: six machines, remote start, today’s RM.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
 
-Next work: [SLICE3.md](./SLICE3.md) (coding brief) and [ranked-slice3.md](./ranked-slice3.md) (scores). P0: flexsoft, mylivin, classflow, corematter, flitz. Sell reviews. Do not email. Slice 2: [SLICE2.md](./SLICE2.md).
+Slice 4 P0 is in. Sell reviews. Do not email. P1 if needed: pos2u, ultrapark, labeau.
