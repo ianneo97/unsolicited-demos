@@ -4,6 +4,7 @@ window.mountDemo = function (root) {
   var selected = "u1";
   var flash = "";
   var LATE = 0.10;
+  var nextRct = 1;
 
   function rates(sqft) {
     return {
@@ -15,23 +16,23 @@ window.mountDemo = function (root) {
   var units = [
     {
       id: "u1", no: "A-5-02", owner: "Farah Aziz", phone: "+60 12-000 2201",
-      sqft: 850, jul: 340, aug: 0, late: 0, issued: false, wa: false
+      sqft: 850, jul: 340, aug: 0, late: 0, issued: false, wa: false, paidIn: 0, receipt: null
     },
     {
       id: "u2", no: "B-2-11", owner: "Wong Jia Hao", phone: "+60 12-000 2202",
-      sqft: 1100, jul: 0, aug: 0, late: 0, issued: false, wa: false
+      sqft: 1100, jul: 0, aug: 0, late: 0, issued: false, wa: false, paidIn: 0, receipt: null
     },
     {
       id: "u3", no: "C-9-08", owner: "Priya Devi", phone: "+60 12-000 2203",
-      sqft: 980, jul: 392, aug: 0, late: 0, issued: false, wa: false
+      sqft: 980, jul: 392, aug: 0, late: 0, issued: false, wa: false, paidIn: 0, receipt: null
     },
     {
       id: "u4", no: "A-12-04", owner: "Hafiz Omar", phone: "+60 12-000 2204",
-      sqft: 850, jul: 340, aug: 0, late: 0, issued: false, wa: false
+      sqft: 850, jul: 340, aug: 0, late: 0, issued: false, wa: false, paidIn: 0, receipt: null
     },
     {
       id: "u5", no: "D-1-06", owner: "Tan Wei Ming", phone: "+60 12-000 2205",
-      sqft: 1250, jul: 0, aug: 0, late: 0, issued: false, wa: false
+      sqft: 1250, jul: 0, aug: 0, late: 0, issued: false, wa: false, paidIn: 0, receipt: null
     }
   ];
 
@@ -55,17 +56,21 @@ window.mountDemo = function (root) {
     return units.reduce(function (s, u) { return s + u.aug + u.late; }, 0);
   }
 
+  function collected() {
+    return units.reduce(function (s, u) { return s + u.paidIn; }, 0);
+  }
+
   function arrearsCount() {
     return units.filter(function (u) { return dueOf(u) > 0; }).length;
   }
 
-  function paidThisMonth() {
-    return units.reduce(function (s, u) {
-      if (!u.issued) return s;
-      var r = rates(u.sqft);
-      var billed = r.maint + r.sink + u.late;
-      return s + (billed - u.aug);
-    }, 0);
+  function issueOne(u) {
+    if (u.issued) return false;
+    var r = rates(u.sqft);
+    u.aug = r.maint + r.sink;
+    if (u.jul > 0) u.late = Math.round(u.jul * LATE);
+    u.issued = true;
+    return true;
   }
 
   function render() {
@@ -74,7 +79,7 @@ window.mountDemo = function (root) {
     var left = el("div");
     left.appendChild(el("div", "shell-title", "myLivin' · Residensi Demo, SS7"));
     bar.appendChild(left);
-    bar.appendChild(el("div", "shell-hint", "This month still due · " + rm(monthDue())));
+    bar.appendChild(el("div", "shell-hint", "Collected " + rm(collected()) + " · still due " + rm(monthDue())));
     root.appendChild(bar);
     var hint = el("div", "shell-bar");
     hint.appendChild(el("div", "shell-hint", "SAMPLE DATA · treasurer · " + arrearsCount() + " in arrears · not a live JMB"));
@@ -88,7 +93,19 @@ window.mountDemo = function (root) {
 
   function unitPanel() {
     var panel = el("div", "panel");
-    panel.appendChild(el("h3", "", "Units · " + arrearsCount() + " in arrears"));
+    var head = el("div", "lv-head");
+    head.appendChild(el("h3", "", "Units · " + arrearsCount() + " in arrears"));
+    var all = el("button", "btn-sm ghost", "Issue August for all");
+    all.type = "button";
+    all.disabled = units.every(function (u) { return u.issued; });
+    all.addEventListener("click", function () {
+      var n = 0;
+      units.forEach(function (u) { if (issueOne(u)) n += 1; });
+      flash = "August issued on " + n + " units · late interest only where Jul is open";
+      render();
+    });
+    head.appendChild(all);
+    panel.appendChild(head);
     var list = el("div", "list");
     units.forEach(function (u) {
       var due = dueOf(u);
@@ -101,6 +118,7 @@ window.mountDemo = function (root) {
       var meta = u.sqft + " sq ft";
       if (u.jul) meta += " · Jul open " + rm(u.jul);
       else meta += " · Jul clear";
+      if (u.late) meta += " · late " + rm(u.late);
       body.appendChild(el("div", "meta", meta));
       t.appendChild(q);
       t.appendChild(body);
@@ -127,19 +145,21 @@ window.mountDemo = function (root) {
     var kv = el("div", "lv-kv");
     kv.appendChild(el("div", "k", "Jul still open"));
     kv.appendChild(el("div", "money" + (u.jul ? " lv-due" : ""), rm(u.jul)));
-    kv.appendChild(el("div", "k", "Late interest 10%"));
-    kv.appendChild(el("div", "money" + (u.late ? " lv-due" : ""), rm(u.late)));
+    kv.appendChild(el("div", "k", "Late 10% of Jul"));
+    kv.appendChild(el("div", "money" + (u.late ? " lv-due" : ""), u.issued && u.jul ? rm(Math.round(u.jul * LATE)) + " due" : rm(u.late)));
     kv.appendChild(el("div", "k", "Aug maintenance"));
     kv.appendChild(el("div", "", u.issued ? rm(r.maint) : "not issued"));
     kv.appendChild(el("div", "k", "Aug sinking"));
     kv.appendChild(el("div", "", u.issued ? rm(r.sink) : "not issued"));
+    kv.appendChild(el("div", "k", "Received here"));
+    kv.appendChild(el("div", "money", rm(u.paidIn)));
     kv.appendChild(el("div", "k", "Due now"));
     kv.appendChild(el("div", "money" + (dueOf(u) ? " lv-due" : ""), rm(dueOf(u))));
     panel.appendChild(kv);
 
     var mix = el("div", "lv-mix");
     mix.appendChild(el("div", "meta", "Block this month"));
-    mix.appendChild(el("div", "", "Still due " + rm(monthDue()) + " · paid after issue " + rm(Math.max(0, paidThisMonth()))));
+    mix.appendChild(el("div", "", "Collected " + rm(collected()) + " · still due " + rm(monthDue())));
     panel.appendChild(mix);
 
     var actions = el("div", "actions");
@@ -147,10 +167,7 @@ window.mountDemo = function (root) {
     issue.type = "button";
     issue.disabled = u.issued;
     issue.addEventListener("click", function () {
-      var rr = rates(u.sqft);
-      u.aug = rr.maint + rr.sink;
-      if (u.jul > 0) u.late = Math.round(u.jul * LATE);
-      u.issued = true;
+      issueOne(u);
       flash = "August issued · " + u.no + " · " + rm(u.aug) + (u.late ? " + late " + rm(u.late) : " · no late");
       render();
     });
@@ -164,23 +181,29 @@ window.mountDemo = function (root) {
       var which = "";
       if (u.jul > 0) {
         got = u.jul;
-        which = "Jul " + rm(got);
+        which = "Jul";
         u.jul = 0;
       } else if (u.late > 0) {
         got = u.late;
-        which = "late " + rm(got);
+        which = "late interest";
         u.late = 0;
       } else if (u.aug > 0) {
         got = u.aug;
-        which = "Aug " + rm(got);
+        which = "Aug";
         u.aug = 0;
       }
-      flash = "Received · " + which + " · due now " + rm(dueOf(u));
+      u.paidIn = Math.round((u.paidIn + got) * 100) / 100;
+      u.receipt = {
+        no: "LV-RCT-" + String(nextRct++).padStart(3, "0"),
+        which: which,
+        amt: got
+      };
+      flash = "Receipt " + u.receipt.no + " · " + which + " " + rm(got) + " · due now " + rm(dueOf(u));
       render();
     });
     actions.appendChild(pay);
 
-    var wa = el("button", "btn-sm ghost" + (u.wa ? "" : ""), u.wa ? "Pay link queued" : "Queue WhatsApp pay link");
+    var wa = el("button", "btn-sm ghost", u.wa ? "Pay link queued" : "Queue WhatsApp pay link");
     wa.type = "button";
     wa.disabled = dueOf(u) === 0 || u.wa;
     wa.addEventListener("click", function () {
@@ -192,7 +215,16 @@ window.mountDemo = function (root) {
     panel.appendChild(actions);
 
     if (flash) panel.appendChild(el("p", "lv-flash", flash));
-    panel.appendChild(el("p", "empty", "Late interest is 10% of Jul, only if August is issued while Jul is still open."));
+
+    if (u.receipt) {
+      var rec = el("div", "lv-rct");
+      rec.appendChild(el("div", "lv-rct-h", "Receipt · sample"));
+      rec.appendChild(el("div", "", u.receipt.no + " · " + u.no + " · " + u.owner));
+      rec.appendChild(el("div", "meta", u.receipt.which + " · " + rm(u.receipt.amt)));
+      panel.appendChild(rec);
+    }
+
+    panel.appendChild(el("p", "empty", "Late interest is 10% of Jul, only if August is issued while Jul is still open. Not a 30/60/90 ledger."));
     return panel;
   }
 
@@ -202,6 +234,8 @@ window.mountDemo = function (root) {
     s.id = "mylivin-demo-css";
     s.textContent = [
       "#demo-root .lv-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
+      "#demo-root .lv-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
+      "#demo-root .lv-head h3{margin-bottom:0}",
       "#demo-root .lv-qwrap{flex:0 0 auto}",
       "#demo-root .lv-qno{font-family:var(--mono);font-weight:600;font-size:15px;min-width:28px;color:color-mix(in srgb,var(--accent) 45%,var(--shell-ink))}",
       "#demo-root .ticket.on .lv-qno{color:var(--shell-ink)}",
@@ -212,6 +246,8 @@ window.mountDemo = function (root) {
       "#demo-root .lv-due{color:color-mix(in srgb,var(--accent) 40%,#f0c080)}",
       "#demo-root .lv-mix{margin-bottom:12px;font-size:13px}",
       "#demo-root .lv-flash{margin-top:8px;font-family:var(--mono);font-size:11px;color:#b7e0cc}",
+      "#demo-root .lv-rct{margin-top:12px;padding:10px 12px;border:1px solid var(--shell-line);border-radius:var(--r);background:color-mix(in srgb,var(--accent) 6%,var(--shell-lift));font-size:13px}",
+      "#demo-root .lv-rct-h{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--shell-muted);margin-bottom:6px}",
       "#demo-root .ticket{align-items:center}",
       "@media (max-width:860px){#demo-root .lv-2{grid-template-columns:1fr}}"
     ].join("");

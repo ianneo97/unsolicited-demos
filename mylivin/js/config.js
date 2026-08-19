@@ -8,6 +8,6 @@ window.SITE = {
   original_url: "https://www.mylivin.my/",
   accent: "#1f7a72",
   accentInk: "#ffffff",
-  demo_lead: "Three units in arrears. Issue August. Late interest lands on overdue units. Queue a WhatsApp pay link. It does not open wa.me.",
+  demo_lead: "Issue August for all. Late interest lands where Jul is open. Receive payment. Read the receipt. Queue a pay link.",
   note: "This is a rebuild of mylivin.my. The live site still ships ©2022 Elementor slugs. living.my still has Lorem Ipsum news cards. This is this-month plus late interest, not a 30/60/90 clone. Sample owners only."
 };

@@ -3,26 +3,22 @@ window.mountDemo = function (root) {
 
   var selected = "c1";
   var flash = "";
-  var seq = 0;
 
   function nowStamp() {
     var d = new Date();
-    var h = d.getHours();
-    var m = d.getMinutes();
-    var s = d.getSeconds();
     function p(n) { return n < 10 ? "0" + n : String(n); }
-    return p(h) + ":" + p(m) + ":" + p(s);
+    return p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
   }
 
   var kids = [
-    { id: "c1", name: "Aina Roslan", age: 5, className: "Kelas Merah", in: false, time: "", fee: 350, feeDue: false, invoice: 0, ping: false },
-    { id: "c2", name: "Hakim Zain", age: 4, className: "Kelas Merah", in: false, time: "", fee: 350, feeDue: true, invoice: 0, ping: false },
-    { id: "c3", name: "Mei Ling", age: 5, className: "Kelas Kuning", in: false, time: "", fee: 380, feeDue: false, invoice: 0, ping: false },
-    { id: "c4", name: "Arif Hassan", age: 6, className: "Kelas Kuning", in: false, time: "", fee: 400, feeDue: true, invoice: 0, ping: false },
-    { id: "c5", name: "Siti Zahra", age: 4, className: "Kelas Hijau", in: false, time: "", fee: 350, feeDue: false, invoice: 0, ping: false },
-    { id: "c6", name: "Daniel Chong", age: 5, className: "Kelas Hijau", in: false, time: "", fee: 350, feeDue: false, invoice: 0, ping: false },
-    { id: "c7", name: "Nurul Iman", age: 3, className: "Kelas Biru", in: false, time: "", fee: 320, feeDue: false, invoice: 0, ping: false },
-    { id: "c8", name: "Rajesh Kumar", age: 6, className: "Kelas Biru", in: false, time: "", fee: 400, feeDue: false, invoice: 0, ping: false }
+    { id: "c1", name: "Aina Roslan", age: 5, className: "Kelas Merah", parent: "Puan Roslan", phone: "+60 12-000 3301", allergy: "", status: "out", time: "", outTime: "", fee: 350, feeDue: false, invoice: 0, ping: false },
+    { id: "c2", name: "Hakim Zain", age: 4, className: "Kelas Merah", parent: "Encik Zain", phone: "+60 12-000 3302", allergy: "kacang", status: "out", time: "", outTime: "", fee: 350, feeDue: true, invoice: 0, ping: false },
+    { id: "c3", name: "Mei Ling", age: 5, className: "Kelas Kuning", parent: "Puan Ling", phone: "+60 12-000 3303", allergy: "", status: "out", time: "", outTime: "", fee: 380, feeDue: false, invoice: 0, ping: false },
+    { id: "c4", name: "Arif Hassan", age: 6, className: "Kelas Kuning", parent: "Encik Hassan", phone: "+60 12-000 3304", allergy: "susu", status: "out", time: "", outTime: "", fee: 400, feeDue: true, invoice: 0, ping: false },
+    { id: "c5", name: "Siti Zahra", age: 4, className: "Kelas Hijau", parent: "Puan Zahra", phone: "+60 12-000 3305", allergy: "", status: "out", time: "", outTime: "", fee: 350, feeDue: false, invoice: 0, ping: false },
+    { id: "c6", name: "Daniel Chong", age: 5, className: "Kelas Hijau", parent: "Encik Chong", phone: "+60 12-000 3306", allergy: "", status: "out", time: "", outTime: "", fee: 350, feeDue: false, invoice: 0, ping: false },
+    { id: "c7", name: "Nurul Iman", age: 3, className: "Kelas Biru", parent: "Puan Iman", phone: "+60 12-000 3307", allergy: "", status: "out", time: "", outTime: "", fee: 320, feeDue: false, invoice: 0, ping: false },
+    { id: "c8", name: "Rajesh Kumar", age: 6, className: "Kelas Biru", parent: "Encik Kumar", phone: "+60 12-000 3308", allergy: "", status: "out", time: "", outTime: "", fee: 400, feeDue: false, invoice: 0, ping: false }
   ];
 
   function rm(n) {
@@ -38,11 +34,22 @@ window.mountDemo = function (root) {
   }
 
   function inCount() {
-    return kids.filter(function (k) { return k.in; }).length;
+    return kids.filter(function (k) { return k.status === "in"; }).length;
   }
 
   function dueCount() {
     return kids.filter(function (k) { return k.feeDue && k.invoice === 0; }).length;
+  }
+
+  function feesToday() {
+    return kids.reduce(function (s, k) { return s + k.invoice; }, 0);
+  }
+
+  function statusChip(k) {
+    if (k.status === "in") return el("span", "tag ok", "IN");
+    if (k.status === "absent") return el("span", "tag warn", "absent");
+    if (k.status === "gone") return el("span", "tag", "OUT");
+    return el("span", "tag", "belum");
   }
 
   function render() {
@@ -51,7 +58,7 @@ window.mountDemo = function (root) {
     var left = el("div");
     left.appendChild(el("div", "shell-title", "ClassFlow · tadika morning"));
     bar.appendChild(left);
-    bar.appendChild(el("div", "shell-hint", inCount() + " / 8 IN · " + dueCount() + " fee due"));
+    bar.appendChild(el("div", "shell-hint", inCount() + " / 8 IN · " + dueCount() + " fee due · fees " + rm(feesToday())));
     root.appendChild(bar);
     var hint = el("div", "shell-bar");
     hint.appendChild(el("div", "shell-hint", "SAMPLE DATA · 8 children · not a live tadika"));
@@ -70,18 +77,20 @@ window.mountDemo = function (root) {
     panel.appendChild(head);
     var list = el("div", "list");
     kids.forEach(function (k) {
-      var t = el("button", "ticket" + (k.id === selected ? " on" : "") + (k.in ? " cf-in" : ""));
+      var t = el("button", "ticket" + (k.id === selected ? " on" : "") + (k.status === "in" ? " cf-in" : ""));
       t.type = "button";
       var q = el("div", "cf-qwrap");
       q.appendChild(el("div", "cf-qno", k.className.split(" ")[1].slice(0, 1)));
       var body = el("div", "cf-grow");
       body.appendChild(el("div", "who", k.name));
-      body.appendChild(el("div", "meta", k.className + " · " + k.age + " thn" + (k.time ? " · " + k.time : "")));
+      var meta = k.className + " · " + k.age + " thn";
+      if (k.time) meta += " · in " + k.time;
+      if (k.allergy) meta += " · " + k.allergy;
+      body.appendChild(el("div", "meta", meta));
       t.appendChild(q);
       t.appendChild(body);
       var chips = el("div", "cf-chips");
-      if (k.in) chips.appendChild(el("span", "tag ok", "IN"));
-      else chips.appendChild(el("span", "tag", "belum"));
+      chips.appendChild(statusChip(k));
       if (k.feeDue && k.invoice === 0) chips.appendChild(el("span", "tag warn", "fee due"));
       else if (k.invoice) chips.appendChild(el("span", "tag ok", "invois"));
       t.appendChild(chips);
@@ -103,8 +112,12 @@ window.mountDemo = function (root) {
     panel.appendChild(el("p", "cf-sub", k.age + " thn · " + k.className + " · sample"));
 
     var kv = el("div", "cf-kv");
+    kv.appendChild(el("div", "k", "Parent"));
+    kv.appendChild(el("div", "", k.parent + " · " + k.phone));
+    kv.appendChild(el("div", "k", "Allergy"));
+    kv.appendChild(el("div", k.allergy ? "cf-due" : "", k.allergy || "none"));
     kv.appendChild(el("div", "k", "Status"));
-    kv.appendChild(el("div", "", k.in ? "IN · " + k.time : "belum scan"));
+    kv.appendChild(el("div", "", k.status === "in" ? "IN · " + k.time : k.status === "gone" ? "OUT · " + k.outTime : k.status === "absent" ? "absent" : "belum scan"));
     kv.appendChild(el("div", "k", "Yuran August"));
     kv.appendChild(el("div", "", rm(k.fee)));
     kv.appendChild(el("div", "k", "Fee"));
@@ -114,24 +127,44 @@ window.mountDemo = function (root) {
     panel.appendChild(kv);
 
     var actions = el("div", "actions");
-    var scan = el("button", "btn-sm" + (k.in ? " ghost" : ""), k.in ? "Sudah IN" : "Face-scan in");
+    var scan = el("button", "btn-sm" + (k.status === "in" ? " ghost" : ""), k.status === "in" ? "Sudah IN" : "Face-scan in");
     scan.type = "button";
-    scan.disabled = k.in;
+    scan.disabled = k.status === "in" || k.status === "absent";
     scan.addEventListener("click", function () {
-      k.in = true;
+      k.status = "in";
       k.time = nowStamp();
-      seq += 1;
       flash = "Face-scan · " + k.name + " · IN · " + k.time + " · no camera";
       render();
     });
     actions.appendChild(scan);
+
+    var out = el("button", "btn-sm ghost", "Face-scan out");
+    out.type = "button";
+    out.disabled = k.status !== "in";
+    out.addEventListener("click", function () {
+      k.status = "gone";
+      k.outTime = nowStamp();
+      flash = "Face-scan out · " + k.name + " · " + k.outTime;
+      render();
+    });
+    actions.appendChild(out);
+
+    var abs = el("button", "btn-sm ghost", k.status === "absent" ? "Marked absent" : "Mark absent");
+    abs.type = "button";
+    abs.disabled = k.status === "in" || k.status === "absent";
+    abs.addEventListener("click", function () {
+      k.status = "absent";
+      flash = "Absent · " + k.name;
+      render();
+    });
+    actions.appendChild(abs);
 
     var ping = el("button", "btn-sm ghost", k.ping ? "Ping queued" : "Parent “sudah sampai”");
     ping.type = "button";
     ping.disabled = k.ping;
     ping.addEventListener("click", function () {
       k.ping = true;
-      flash = "Ping queued · " + k.name + " sudah sampai · not sent";
+      flash = "Ping queued · " + k.parent + " · " + k.phone + " · " + k.name + " sudah sampai · not sent";
       render();
     });
     actions.appendChild(ping);
@@ -142,7 +175,7 @@ window.mountDemo = function (root) {
     inv.addEventListener("click", function () {
       k.invoice = k.fee;
       k.feeDue = false;
-      flash = "Invoice August · " + k.name + " · " + rm(k.invoice);
+      flash = "Invoice August · " + k.name + " · " + rm(k.invoice) + " · fees today " + rm(feesToday());
       render();
     });
     actions.appendChild(inv);
@@ -152,7 +185,7 @@ window.mountDemo = function (root) {
     if (k.invoice) {
       panel.appendChild(el("div", "stamp on", "INV-DEMO-CF-0819 · " + k.name + " · " + rm(k.invoice) + " · sample"));
     }
-    panel.appendChild(el("p", "empty", "Face-scan is a button. There is no camera. KindyPro / StudentQR / AOne are the same seat."));
+    panel.appendChild(el("p", "empty", "Face-scan is a button. There is no camera. Fees today " + rm(feesToday()) + "."));
     return panel;
   }
 

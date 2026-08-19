@@ -8,6 +8,6 @@ window.SITE = {
   original_url: "https://www.flitz.com.my/",
   accent: "#e24a2a",
   accentInk: "#ffffff",
-  demo_lead: "Eight PJ drops. Assign Hafiz or Siti. Tick photo. Mark POD. The timestamp lands. The grid is fake. No live GPS.",
+  demo_lead: "Assign Hafiz or Siti. Watch rider load. Tick photo and sign. Mark POD. Or fail as not home. The grid is fake.",
   note: "This is a rebuild of flitz.com.my. The live homepage says “#1” and never shows a product UI. Laundry and distributor copy is fine. This is not a clinic and not a workshop. Sample drops only."
 };

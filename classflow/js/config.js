@@ -8,6 +8,6 @@ window.SITE = {
   original_url: "https://classflow.my/",
   accent: "#d97706",
   accentInk: "#1a0e06",
-  demo_lead: "Eight children. Face-scan in stamps a time. Two kids show fee due. Ping “sudah sampai”. Issue August on the selected child.",
+  demo_lead: "Face-scan in. Scan out. Mark absent. Two kids have allergies and fee due. Ping the parent. Issue August. Fees today moves.",
   note: "This is a rebuild of classflow.my. The live homepage stuffs “kindergarten software” into every paragraph. This is a tadika morning board, not StudentQR, not AOne, not KindyPro. Sample children only."
 };

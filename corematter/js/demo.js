@@ -4,22 +4,26 @@ window.mountDemo = function (root) {
   var selected = "m1";
   var pdfOn = false;
   var tick = null;
+  var nextBill = 1;
 
   var matters = [
     {
       id: "m1", no: "CM-2411", title: "Sale of Lot 88, SS2",
       kind: "conveyancing", client: "Encik Razak (sample)",
-      rate: 400, clientAc: 12000, officeAc: 0, wip: 0, minutes: 0, running: false, started: 0
+      rate: 400, clientAc: 12000, officeAc: 0, wip: 0, minutes: 0, disb: 0,
+      running: false, lastBill: 0, billNo: "", log: []
     },
     {
       id: "m2", no: "CM-2503", title: "Saman vs Kedai Demo",
       kind: "litigation", client: "Puan Mei Ling (sample)",
-      rate: 350, clientAc: 3000, officeAc: 800, wip: 140, minutes: 24, running: false, started: 0
+      rate: 350, clientAc: 3000, officeAc: 800, wip: 140, minutes: 24, disb: 0,
+      running: false, lastBill: 0, billNo: "", log: [{ min: 24, note: "Review affidavits", amt: 140 }]
     },
     {
       id: "m3", no: "CM-2507", title: "Retainer · Atap Trading",
       kind: "retainer", client: "Atap Trading Sdn Bhd (sample)",
-      rate: 300, clientAc: 5000, officeAc: 1500, wip: 0, minutes: 0, running: false, started: 0
+      rate: 300, clientAc: 5000, officeAc: 1500, wip: 0, minutes: 0, disb: 0,
+      running: false, lastBill: 0, billNo: "", log: []
     }
   ];
 
@@ -35,8 +39,12 @@ window.mountDemo = function (root) {
     return matters[0];
   }
 
-  function wipOf(m) {
+  function timeWip(m) {
     return Math.round((m.minutes / 60) * m.rate * 100) / 100;
+  }
+
+  function wipOf(m) {
+    return Math.round((timeWip(m) + m.disb) * 100) / 100;
   }
 
   function sstOf(n) {
@@ -93,7 +101,7 @@ window.mountDemo = function (root) {
       t.type = "button";
       var body = el("div", "cm-grow");
       body.appendChild(el("div", "who", m.no + " · " + m.kind));
-      body.appendChild(el("div", "meta", m.title));
+      body.appendChild(el("div", "meta", m.title + " · WIP " + rm(wipOf(m))));
       t.appendChild(body);
       t.appendChild(el("span", "tag" + (m.running ? " ok" : ""), m.running ? "timer" : m.kind));
       t.addEventListener("click", function () {
@@ -119,13 +127,27 @@ window.mountDemo = function (root) {
     var kv = el("div", "cm-kv");
     kv.appendChild(el("div", "k", "Elapsed"));
     kv.appendChild(el("div", "", m.minutes + " min" + (m.running ? " · running" : "")));
-    kv.appendChild(el("div", "k", "WIP"));
+    kv.appendChild(el("div", "k", "Time WIP"));
+    kv.appendChild(el("div", "money", rm(timeWip(m))));
+    kv.appendChild(el("div", "k", "Disbursement"));
+    kv.appendChild(el("div", "money", rm(m.disb)));
+    kv.appendChild(el("div", "k", "WIP total"));
     kv.appendChild(el("div", "money", rm(m.wip)));
     kv.appendChild(el("div", "k", "Client account"));
     kv.appendChild(el("div", "money", rm(m.clientAc)));
     kv.appendChild(el("div", "k", "Office account"));
     kv.appendChild(el("div", "money", rm(m.officeAc)));
     panel.appendChild(kv);
+
+    if (m.log.length) {
+      panel.appendChild(el("label", "lbl", "Time log"));
+      m.log.forEach(function (row) {
+        var tx = el("div", "tx");
+        tx.appendChild(el("div", "", row.note + " · " + row.min + " min"));
+        tx.appendChild(el("div", "amt", rm(row.amt)));
+        panel.appendChild(tx);
+      });
+    }
 
     var actions = el("div", "actions");
     var start = el("button", "btn-sm" + (m.running ? " ghost" : ""), m.running ? "Stop timer" : "Start timer");
@@ -134,6 +156,9 @@ window.mountDemo = function (root) {
       if (m.running) {
         m.running = false;
         stopTick();
+        if (m.minutes) {
+          m.log.push({ min: m.minutes, note: "Timer stop", amt: timeWip(m) });
+        }
       } else {
         matters.forEach(function (x) { x.running = false; });
         m.running = true;
@@ -143,6 +168,23 @@ window.mountDemo = function (root) {
     });
     actions.appendChild(start);
 
+    var disb = el("button", "btn-sm ghost", "Add filing RM 50");
+    disb.type = "button";
+    disb.addEventListener("click", function () {
+      m.disb = Math.round((m.disb + 50) * 100) / 100;
+      m.wip = wipOf(m);
+      render();
+    });
+    actions.appendChild(disb);
+
+    var trust = el("button", "btn-sm ghost", "Pay into trust RM 500");
+    trust.type = "button";
+    trust.addEventListener("click", function () {
+      m.clientAc = Math.round((m.clientAc + 500) * 100) / 100;
+      render();
+    });
+    actions.appendChild(trust);
+
     var bill = el("button", "btn-sm ghost", "Raise bill");
     bill.type = "button";
     bill.disabled = m.wip <= 0;
@@ -151,10 +193,12 @@ window.mountDemo = function (root) {
       var fromTrust = Math.min(m.clientAc, amt);
       m.clientAc = Math.round((m.clientAc - fromTrust) * 100) / 100;
       m.officeAc = Math.round((m.officeAc + amt) * 100) / 100;
+      m.lastBill = amt;
+      m.billNo = "CM-BILL-" + String(nextBill++).padStart(3, "0");
       m.minutes = 0;
+      m.disb = 0;
       m.wip = 0;
       m.running = false;
-      m.lastBill = amt;
       stopTick();
       pdfOn = false;
       render();
@@ -172,7 +216,7 @@ window.mountDemo = function (root) {
     panel.appendChild(actions);
 
     if (m.lastBill) {
-      panel.appendChild(el("p", "cm-flash", "Last bill " + rm(m.lastBill) + " · office now " + rm(m.officeAc)));
+      panel.appendChild(el("p", "cm-flash", m.billNo + " · last bill " + rm(m.lastBill) + " · office now " + rm(m.officeAc)));
     }
 
     if (pdfOn) {
@@ -180,11 +224,11 @@ window.mountDemo = function (root) {
       var sst = sstOf(billBase);
       var box = el("div", "cm-pdf");
       box.appendChild(el("div", "cm-pdf-h", "SST preview · sample · not a file"));
-      box.appendChild(el("div", "", m.no + " · " + m.title));
+      box.appendChild(el("div", "", (m.billNo || m.no) + " · " + m.title));
       box.appendChild(el("div", "meta", m.client));
       var pl = el("div", "pl");
       var r1 = el("div", "pl-row");
-      r1.appendChild(el("div", "", "Fees"));
+      r1.appendChild(el("div", "", "Fees + disbursement"));
       r1.appendChild(el("div", "money", rm(billBase)));
       pl.appendChild(r1);
       var r2 = el("div", "pl-row");

@@ -6,6 +6,10 @@ window.mountDemo = function (root) {
   var paid = false;
   var tender = 50;
   var nextLine = 1;
+  var nextRcpt = 1;
+  var payMode = "cash";
+  var drawer = 200;
+  var lastSale = null;
   var SST = 0.06;
 
   var skus = [
@@ -42,6 +46,7 @@ window.mountDemo = function (root) {
   }
 
   function changeDue() {
+    if (payMode !== "cash") return 0;
     return Math.round((tender - total()) * 100) / 100;
   }
 
@@ -63,6 +68,7 @@ window.mountDemo = function (root) {
     }
     s.qty -= 1;
     issued = false;
+    lastSale = null;
     var tot = total();
     if (tender < tot) {
       tender = Math.ceil(tot / 10) * 10;
@@ -77,7 +83,7 @@ window.mountDemo = function (root) {
     var left = el("div");
     left.appendChild(el("div", "shell-title", "Flexsoft · Sri Damansara till"));
     bar.appendChild(left);
-    bar.appendChild(el("div", "shell-hint", basket.length ? basket.length + " lines · " + rm(total()) : "basket empty"));
+    bar.appendChild(el("div", "shell-hint", "Drawer " + rm(drawer) + " · " + (basket.length ? basket.length + " lines · " + rm(total()) : "basket empty")));
     root.appendChild(bar);
     var hint = el("div", "shell-bar");
     hint.appendChild(el("div", "shell-hint", "SAMPLE DATA · grocery counter · not a live shop"));
@@ -131,6 +137,7 @@ window.mountDemo = function (root) {
           s.qty += line.qty;
           basket = basket.filter(function (x) { return x.id !== line.id; });
           issued = false;
+          lastSale = null;
           render();
         });
         right.appendChild(rmBtn);
@@ -151,7 +158,20 @@ window.mountDemo = function (root) {
     line("Total", total(), "total");
     panel.appendChild(pl);
 
-    if (!paid) {
+    var modes = el("div", "fx-modes");
+    ["cash", "card"].forEach(function (m) {
+      var b = el("button", "tab" + (payMode === m ? " on" : ""), m);
+      b.type = "button";
+      b.disabled = paid;
+      b.addEventListener("click", function () {
+        payMode = m;
+        render();
+      });
+      modes.appendChild(b);
+    });
+    panel.appendChild(modes);
+
+    if (payMode === "cash" && !paid) {
       panel.appendChild(el("label", "lbl", "Tendered (MYR)"));
       var ten = el("input", "field");
       ten.type = "number";
@@ -169,10 +189,10 @@ window.mountDemo = function (root) {
 
     var chg = changeDue();
     var chgRow = el("div", "pl-row");
-    chgRow.appendChild(el("div", "", paid ? "Change given" : "Change"));
+    chgRow.appendChild(el("div", "", paid ? "Change given" : (payMode === "cash" ? "Change" : "Card · no change")));
     chgRow.appendChild(el("div", "money" + (!paid && chg < 0 ? " fx-short" : ""), rm(chg)));
     panel.appendChild(chgRow);
-    if (!paid && chg < 0) {
+    if (!paid && payMode === "cash" && chg < 0) {
       panel.appendChild(el("p", "empty", "Short · tender more than " + rm(total()) + "."));
     }
 
@@ -200,8 +220,27 @@ window.mountDemo = function (root) {
     actions.appendChild(issue);
     var take = el("button", "btn-sm" + (paid ? " ghost" : ""), paid ? "Paid" : "Take payment");
     take.type = "button";
-    take.disabled = paid || !basket.length || chg < 0;
+    take.disabled = paid || !basket.length || (payMode === "cash" && chg < 0);
     take.addEventListener("click", function () {
+      var tot = total();
+      if (payMode === "cash") drawer = Math.round((drawer + tot) * 100) / 100;
+      lastSale = {
+        no: "FX-RCPT-" + String(nextRcpt++).padStart(3, "0"),
+        mode: payMode,
+        tender: payMode === "cash" ? tender : tot,
+        change: payMode === "cash" ? chg : 0,
+        sub: subtotal(),
+        sst: sstAmt(),
+        tot: tot,
+        lines: basket.map(function (line) {
+          return {
+            name: line.name,
+            qty: line.qty,
+            amt: line.qty * line.price,
+            left: findSku(line.skuId).qty
+          };
+        })
+      };
       paid = true;
       render();
     });
@@ -215,15 +254,28 @@ window.mountDemo = function (root) {
         issued = false;
         einvoice = false;
         tender = 50;
+        payMode = "cash";
+        lastSale = null;
         render();
       });
       actions.appendChild(next);
     }
     panel.appendChild(actions);
 
+    if (lastSale) {
+      var rec = el("div", "fx-rcpt");
+      rec.appendChild(el("div", "fx-rcpt-h", "Receipt · " + lastSale.no + " · sample"));
+      lastSale.lines.forEach(function (line) {
+        rec.appendChild(el("div", "meta", line.name + " · × " + line.qty + " · " + rm(line.amt) + " · shelf now " + line.left));
+      });
+      rec.appendChild(el("div", "meta", "Subtotal " + rm(lastSale.sub) + " · SST " + rm(lastSale.sst)));
+      rec.appendChild(el("div", "", lastSale.mode + " · tendered " + rm(lastSale.tender) + " · change " + rm(lastSale.change) + " · drawer " + rm(drawer)));
+      panel.appendChild(rec);
+    }
+
     var stamp = el("div", "stamp" + (einvoice || paid ? " on" : ""));
     if (paid && einvoice) stamp.textContent = "Paid · MyInvois (sample) · MYINV-SAMPLE-FX-0819";
-    else if (paid) stamp.textContent = "Paid · paper receipt · cash";
+    else if (paid) stamp.textContent = "Paid · paper · " + lastSale.no;
     else if (issued || einvoice) stamp.textContent = "MyInvois (sample) · MYINV-SAMPLE-FX-0819";
     else stamp.textContent = "Paper receipt · e-invoice off";
     panel.appendChild(stamp);
@@ -240,6 +292,9 @@ window.mountDemo = function (root) {
       "#demo-root .fx-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}",
       "#demo-root .fx-x{padding:3px 8px;font-size:11px}",
       "#demo-root .fx-short{color:color-mix(in srgb,var(--danger) 70%,var(--shell-ink))}",
+      "#demo-root .fx-modes{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}",
+      "#demo-root .fx-rcpt{margin-top:12px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--ok) 40%,var(--shell-line));border-radius:var(--r);background:var(--shell-lift);font-size:13px}",
+      "#demo-root .fx-rcpt-h{font-family:var(--mono);font-size:12px;margin-bottom:4px}",
       "#demo-root .ticket{align-items:center}",
       "@media (max-width:860px){#demo-root .fx-2{grid-template-columns:1fr}}"
     ].join("");
