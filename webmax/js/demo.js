@@ -18,45 +18,72 @@ window.mountDemo = function (root) {
     {
       id: "v1", plate: "WVK 3841", make: "Perodua Myvi", year: "2018",
       job: "tukar tayar", status: "serving", time: "08:40",
+      owner: "Encik Razak", phone: "+60 12-000 1101",
+      km: 68420, size: "185/55 R15", nextDue: "19 Nov 2026", nextBooked: false,
       complaint: "Depan kiri botak. Customer mahu pair depan.",
       labour: 40, einvoice: false, wa: false,
       parts: [
         { id: "p1", stockId: "s1", name: "185/55 R15 tyre", qty: 2, price: 220 }
+      ],
+      history: [
+        { date: "12 Feb 2026", job: "tukar tayar", km: 61200, total: 480 },
+        { date: "3 Sep 2025", job: "service", km: 54880, total: 165 }
       ]
     },
     {
       id: "v2", plate: "BNH 2290", make: "Honda City", year: "2016",
       job: "service", status: "waiting", time: "09:05",
+      owner: "Puan Mei Ling", phone: "+60 12-000 1102",
+      km: 98210, size: "185/55 R16", nextDue: "due now · 10,000 km", nextBooked: false,
       complaint: "10,000 km service. Minyak hitam. Tiada bunyi pelik.",
       labour: 80, einvoice: false, wa: false,
       parts: [
         { id: "p2", stockId: "s3", name: "Engine oil 4L", qty: 1, price: 85 },
         { id: "p3", stockId: "s4", name: "Oil filter", qty: 1, price: 28 }
+      ],
+      history: [
+        { date: "18 Mar 2026", job: "service", km: 88100, total: 190 },
+        { date: "9 Jan 2026", job: "alignment", km: 86040, total: 60 }
       ]
     },
     {
       id: "v3", plate: "WYA 1107", make: "Toyota Hilux", year: "2020",
       job: "alignment", status: "waiting", time: "09:20",
+      owner: "Encik Kumar", phone: "+60 12-000 1103",
+      km: 45200, size: "265/65 R17", nextDue: "2 Feb 2027", nextBooked: false,
       complaint: "Steering tarik ke kanan lepas tukar tayar minggu lepas.",
       labour: 60, einvoice: false, wa: false,
-      parts: []
+      parts: [],
+      history: [
+        { date: "11 Aug 2026", job: "tukar tayar", km: 44980, total: 920 }
+      ]
     },
     {
       id: "v4", plate: "VAG 5518", make: "Proton Saga", year: "2019",
       job: "tukar tayar", status: "waiting", time: "09:35",
+      owner: "Puan Aisyah", phone: "+60 12-000 1104",
+      km: 73110, size: "185/55 R15", nextDue: "4 Dec 2026", nextBooked: false,
       complaint: "Tayar belakang pecah paku. Spare dah pakai.",
       labour: 25, einvoice: false, wa: false,
       parts: [
         { id: "p4", stockId: "s1", name: "185/55 R15 tyre", qty: 1, price: 220 }
+      ],
+      history: [
+        { date: "22 May 2026", job: "service", km: 69000, total: 155 }
       ]
     },
     {
       id: "v5", plate: "BQP 7732", make: "Nissan Almera", year: "2021",
       job: "service", status: "waiting", time: "09:50",
+      owner: "Encik Daniel", phone: "+60 12-000 1105",
+      km: 31840, size: "195/55 R16", nextDue: "due now · brake", nextBooked: false,
       complaint: "Bunyi brake depan. Nak check pad dan minyak.",
       labour: 90, einvoice: false, wa: false,
       parts: [
         { id: "p5", stockId: "s5", name: "Brake pad (front)", qty: 1, price: 95 }
+      ],
+      history: [
+        { date: "14 Apr 2026", job: "service", km: 24100, total: 170 }
       ]
     }
   ];
@@ -179,8 +206,8 @@ window.mountDemo = function (root) {
       var qwrap = el("div", "wm-qwrap");
       qwrap.appendChild(el("div", "wm-qno", j.plate.split(" ")[0]));
       var body = el("div", "wm-grow");
-      body.appendChild(el("div", "who", j.plate));
-      body.appendChild(el("div", "meta", j.make + " · " + j.job + " · " + j.time));
+      body.appendChild(el("div", "who", j.plate + " · " + j.owner.split(" ").slice(-1)[0]));
+      body.appendChild(el("div", "meta", j.km.toLocaleString("en-MY") + " km · " + j.job + " · " + j.time));
       t.appendChild(qwrap);
       t.appendChild(body);
       var chips = el("div", "wm-chips");
@@ -205,7 +232,43 @@ window.mountDemo = function (root) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Job card"));
     panel.appendChild(el("div", "serving-name", j.plate));
-    panel.appendChild(el("p", "wm-sub", j.make + " · " + j.year + " · " + j.job));
+    panel.appendChild(el("p", "wm-sub", j.make + " · " + j.year + " · " + j.size));
+
+    var kv = el("div", "wm-kv");
+    kv.appendChild(el("div", "k", "Owner"));
+    kv.appendChild(el("div", "", j.owner + " · sample"));
+    kv.appendChild(el("div", "k", "Phone"));
+    kv.appendChild(el("div", "", j.phone));
+    kv.appendChild(el("div", "k", "Odometer"));
+    var kmWrap = el("div", "wm-km-row");
+    var km = el("input", "field wm-km");
+    km.type = "number";
+    km.min = "0";
+    km.step = "10";
+    km.value = String(j.km);
+    km.setAttribute("aria-label", "Odometer km");
+    km.addEventListener("change", function () {
+      var n = Number(km.value);
+      j.km = isNaN(n) || n < 0 ? j.km : Math.round(n);
+      render();
+    });
+    kmWrap.appendChild(km);
+    kmWrap.appendChild(el("span", "meta", "km"));
+    kv.appendChild(kmWrap);
+    kv.appendChild(el("div", "k", "Next service"));
+    kv.appendChild(el("div", j.nextBooked ? "" : "wm-due", j.nextBooked ? "booked · " + j.nextDue : j.nextDue));
+    panel.appendChild(kv);
+
+    panel.appendChild(el("label", "lbl", "Last jobs · this plate"));
+    j.history.forEach(function (h) {
+      var row = el("div", "tx");
+      var left = el("div");
+      left.appendChild(el("div", "", h.job));
+      left.appendChild(el("div", "sub", h.date + " · " + h.km.toLocaleString("en-MY") + " km"));
+      row.appendChild(left);
+      row.appendChild(el("div", "amt", rm(h.total)));
+      panel.appendChild(row);
+    });
 
     panel.appendChild(el("label", "lbl", "Complaint"));
     var cc = el("textarea", "field wm-cc");
@@ -295,7 +358,7 @@ window.mountDemo = function (root) {
   function billPanel(j) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Bill"));
-    panel.appendChild(el("p", "wm-sub", j.plate + " · sample"));
+    panel.appendChild(el("p", "wm-sub", j.owner + " · " + j.plate + " · sample"));
 
     var parts = el("div", "tx");
     parts.appendChild(el("div", "", "Parts"));
@@ -333,16 +396,31 @@ window.mountDemo = function (root) {
     panel.appendChild(stamp);
 
     var actions = el("div", "actions");
+    var book = el("button", "btn-sm" + (j.nextBooked ? " ghost" : ""), j.nextBooked ? "Next service booked" : "Book next service");
+    book.type = "button";
+    book.disabled = j.nextBooked;
+    book.addEventListener("click", function () {
+      j.nextBooked = true;
+      if (j.nextDue.indexOf("due now") === 0) {
+        j.nextDue = "19 Nov 2026";
+      }
+      render();
+    });
+    actions.appendChild(book);
+
     var wa = el("button", "btn-sm" + (j.wa ? " ghost" : ""), j.wa ? "WhatsApp queued" : "WhatsApp bill");
     wa.type = "button";
     wa.addEventListener("click", function () {
       j.wa = true;
-      waMsg = "queued to +60 12-000 0000 · " + j.plate + " · " + rm(jobTotal(j)) + " · not sent";
+      waMsg = "queued to " + j.phone + " · " + j.plate + " · " + rm(jobTotal(j)) + " · not sent";
       render();
     });
     actions.appendChild(wa);
     panel.appendChild(actions);
 
+    if (j.nextBooked) {
+      panel.appendChild(el("div", "stamp on", "Next service booked · " + j.nextDue + " · " + j.km.toLocaleString("en-MY") + " km today"));
+    }
     if (waMsg) {
       panel.appendChild(el("p", "wm-flash", waMsg));
     }
@@ -390,6 +468,11 @@ window.mountDemo = function (root) {
       "#demo-root .wm-add{flex:1;min-width:0;padding:8px 10px;font-size:13px}",
       "#demo-root .ticket.wm-stock{cursor:default}",
       "#demo-root .ticket{align-items:center}",
+      "#demo-root .wm-kv{display:grid;grid-template-columns:6.8rem 1fr;gap:7px 12px;font-size:13px;margin:4px 0 10px;align-items:center}",
+      "#demo-root .wm-kv .k{color:var(--shell-muted)}",
+      "#demo-root .wm-km-row{display:flex;align-items:center;gap:8px}",
+      "#demo-root .wm-km{width:7.5rem;padding:6px 8px}",
+      "#demo-root .wm-due{color:color-mix(in srgb,var(--accent) 45%,#f0c080)}",
       "@media (max-width:860px){#demo-root .wm-3{grid-template-columns:1fr}}"
     ].join("");
     document.head.appendChild(s);
