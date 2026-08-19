@@ -45,18 +45,18 @@ Each new company is a folder at repo root:
 
 ```
 <slug>/
-  index.html          # copy from magsys/index.html (shared chrome)
-  css/style.css       # copy from magsys/css/style.css
-  js/app.js           # copy from magsys/js/app.js
-  js/config.js        # THIS company only — window.SITE
-  js/demo.js          # THIS company only — window.mountDemo(root)
+  index.html          # copy from shared/template.html
+  js/config.js        # THIS company only: window.SITE
+  js/demo.js          # THIS company only: window.mountDemo(root)
 ```
+
+Do not copy css/style.css or js/app.js into the folder. Chrome lives in `shared/`.
 
 `window.SITE` fields (match existing): `slug`, `name`, `oneliner`, `sells`, `worst_problem`, `city`, `original_url`, `accent`, `accentInk`, `demo_lead`, `note`.
 
-`js/app.js` fills the chrome from `SITE` and calls `window.mountDemo(root)`. Use `window.el(tag, cls, txt)` already defined there.
+`shared/js/app.js` fills the chrome from `SITE` and calls `window.mountDemo(root)`. Use `window.el(tag, cls, txt)` from that file. Use `window.desk` from `shared/js/desk.js` for `rm`, `hms`, `stamp`, `find`, `pad`.
 
-Extra CSS for a dense desk: inject a `<style>` from `demo.js` (same as MAGSYS / TEERA / WebMax). Do not fork `style.css` per company.
+Desk layout classes live in `shared/css/style.css`: `desk-2`, `desk-3`, `desk-kv`, `desk-flash`, `desk-map`. Extra CSS for a signature only: inject a `<style>` from `demo.js`. Do not fork `style.css` per company.
 
 Footer on every page: `Unsolicited demo. Built from the public site.` / `Ian Neo`.
 
