@@ -1,10 +1,12 @@
 window.mountDemo = function (root) {
   injectCss();
 
+  var KEY = "unsolicited.webmax.bay.v1";
+  var waMsg = "";
   var nextPart = 20;
+  var nextJob = 6;
   var tab = "job";
   var selected = "v1";
-  var waMsg = "";
 
   var stock = [
     { id: "s1", name: "185/55 R15 tyre", sku: "TY-185-15", qty: 8, price: 220 },
@@ -88,6 +90,58 @@ window.mountDemo = function (root) {
     }
   ];
 
+  function persist() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        v: 1,
+        jobs: jobs,
+        stock: stock,
+        selected: selected,
+        tab: tab,
+        nextPart: nextPart,
+        nextJob: nextJob
+      }));
+    } catch (err) {}
+  }
+
+  function loadBay() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      if (!data || !data.jobs || !data.jobs.length || !data.stock) return;
+      jobs = data.jobs;
+      stock = data.stock;
+      selected = data.selected || jobs[0].id;
+      tab = data.tab === "stock" ? "stock" : "job";
+      nextPart = Number(data.nextPart) || 20;
+      nextJob = Number(data.nextJob) || 6;
+    } catch (err) {}
+  }
+
+  function resetBay() {
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    window.location.reload();
+  }
+
+  function isCustom() {
+    return jobs.some(function (j) { return j.mine; });
+  }
+
+  function labourFor(kind) {
+    if (kind === "service") return 80;
+    if (kind === "alignment") return 60;
+    return 40;
+  }
+
+  function nowTime() {
+    var d = new Date();
+    function p(n) { return n < 10 ? "0" + n : String(n); }
+    return p(d.getHours()) + ":" + p(d.getMinutes());
+  }
+
+  loadBay();
+
   function rm(n) {
     return "RM " + Number(n).toFixed(2);
   }
@@ -153,15 +207,26 @@ window.mountDemo = function (root) {
       tabs.appendChild(b);
     });
     bar.appendChild(tabs);
+    var reset = el("button", "btn-sm ghost", "Reset sample bay");
+    reset.type = "button";
+    reset.addEventListener("click", resetBay);
+    bar.appendChild(reset);
     root.appendChild(bar);
 
     var hintBar = el("div", "shell-bar");
     hintBar.appendChild(el(
       "div",
       "shell-hint",
-      "SAMPLE DATA · 5 vehicles · not a live workshop"
+      isCustom()
+        ? "YOUR BAY · saved in this browser · " + jobs.length + " vehicles"
+        : "SAMPLE DATA · add your plate · saved in this browser after you type"
     ));
     root.appendChild(hintBar);
+
+    if (!jobs.some(function (x) { return x.id === selected; })) {
+      selected = jobs[0] ? jobs[0].id : "";
+    }
+    persist();
 
     if (tab === "stock") {
       root.appendChild(stockPanel());
@@ -222,8 +287,90 @@ window.mountDemo = function (root) {
       list.appendChild(t);
     });
     panel.appendChild(list);
+
+    panel.appendChild(el("label", "lbl", "Add your vehicle"));
+    var form = el("div", "wm-addbay");
+    var plateIn = el("input", "field");
+    plateIn.type = "text";
+    plateIn.placeholder = "Plate · WVK 3841";
+    plateIn.maxLength = 12;
+    plateIn.setAttribute("aria-label", "Vehicle plate");
+    var makeIn = el("input", "field");
+    makeIn.type = "text";
+    makeIn.placeholder = "Make · Myvi";
+    makeIn.maxLength = 28;
+    makeIn.setAttribute("aria-label", "Vehicle make");
+    var jobIn = el("select", "select wm-add");
+    jobIn.setAttribute("aria-label", "Job type");
+    ["tukar tayar", "service", "alignment"].forEach(function (k) {
+      var o = el("option", "", k);
+      o.value = k;
+      jobIn.appendChild(o);
+    });
+    var ownIn = el("input", "field");
+    ownIn.type = "text";
+    ownIn.placeholder = "Owner · Encik Razak";
+    ownIn.maxLength = 32;
+    ownIn.setAttribute("aria-label", "Owner name");
+    var addVeh = el("button", "btn-sm", "Add to bay");
+    addVeh.type = "button";
+    addVeh.addEventListener("click", function () {
+      var plate = plateIn.value.replace(/\s+/g, " ").trim().toUpperCase();
+      if (!plate) {
+        plateIn.focus();
+        return;
+      }
+      var hit = null;
+      jobs.forEach(function (x) {
+        if (x.plate.toUpperCase() === plate) hit = x;
+      });
+      if (hit) {
+        selected = hit.id;
+        tab = "job";
+        waMsg = "";
+        render();
+        return;
+      }
+      var kind = jobIn.value;
+      var id = "v" + (nextJob++);
+      jobs.push({
+        id: id,
+        plate: plate,
+        make: (makeIn.value.replace(/\s+/g, " ").trim() || "Kereta"),
+        year: "—",
+        job: kind,
+        status: "waiting",
+        time: nowTime(),
+        owner: (ownIn.value.replace(/\s+/g, " ").trim() || "Walk-in"),
+        phone: "+60 12-000 0000",
+        km: 0,
+        size: "—",
+        nextDue: "not set",
+        nextBooked: false,
+        complaint: "",
+        labour: labourFor(kind),
+        einvoice: false,
+        wa: false,
+        parts: [],
+        history: [],
+        mine: true
+      });
+      selected = id;
+      tab = "job";
+      waMsg = "";
+      render();
+    });
+    plateIn.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") addVeh.click();
+    });
+    form.appendChild(plateIn);
+    form.appendChild(makeIn);
+    form.appendChild(jobIn);
+    form.appendChild(ownIn);
+    form.appendChild(addVeh);
+    panel.appendChild(form);
     if (waitN === 0) {
-      panel.appendChild(el("p", "empty", "Morning bay clear."));
+      panel.appendChild(el("p", "empty", "Morning bay clear. Add a plate."));
     }
     return panel;
   }
@@ -236,7 +383,7 @@ window.mountDemo = function (root) {
 
     var kv = el("div", "wm-kv");
     kv.appendChild(el("div", "k", "Owner"));
-    kv.appendChild(el("div", "", j.owner + " · sample"));
+    kv.appendChild(el("div", "", j.mine ? j.owner : j.owner + " · sample"));
     kv.appendChild(el("div", "k", "Phone"));
     kv.appendChild(el("div", "", j.phone));
     kv.appendChild(el("div", "k", "Odometer"));
@@ -277,6 +424,7 @@ window.mountDemo = function (root) {
     cc.setAttribute("aria-label", "Job complaint");
     cc.addEventListener("input", function () {
       j.complaint = cc.value;
+      persist();
     });
     panel.appendChild(cc);
 
@@ -358,7 +506,7 @@ window.mountDemo = function (root) {
   function billPanel(j) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Bill"));
-    panel.appendChild(el("p", "wm-sub", j.owner + " · " + j.plate + " · sample"));
+    panel.appendChild(el("p", "wm-sub", j.owner + " · " + j.plate + (j.mine ? "" : " · sample")));
 
     var parts = el("div", "tx");
     parts.appendChild(el("div", "", "Parts"));
@@ -487,7 +635,9 @@ window.mountDemo = function (root) {
       "#demo-root .wm-km-row{display:flex;align-items:center;gap:8px}",
       "#demo-root .wm-km{width:7.5rem;padding:6px 8px}",
       "#demo-root .wm-due{color:color-mix(in srgb,var(--accent) 45%,#f0c080)}",
-      "@media (max-width:860px){#demo-root .wm-3{grid-template-columns:1fr}}"
+      "#demo-root .wm-addbay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}",
+      "#demo-root .wm-addbay .wm-add,#demo-root .wm-addbay .btn-sm{grid-column:1 / -1}",
+      "@media (max-width:860px){#demo-root .wm-3{grid-template-columns:1fr}#demo-root .wm-addbay{grid-template-columns:1fr}}"
     ].join("");
     document.head.appendChild(s);
   }
