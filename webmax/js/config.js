@@ -7,7 +7,7 @@ window.SITE = {
   city: "Prima Selayang",
   original_url: "https://workshopsoftware.my/",
   accent: "#e07a2f",
-  accentInk: "#1a0e06",
+  accentInk: "#ffffff",
   demo_lead: "Sample bay on first load. Add your plate. Add parts. Watch the MYR total. Refresh. The bay is still there. Reset sample bay to start over. WhatsApp bill does not open wa.me.",
   note: "This is a rebuild of workshopsoftware.my. The live site still recycles 2019-2020 news and pastes the same “120 pengedar” testimonial on Prowheels and Kim Auto Garage. This desk is a live MVP in your browser. No account. No server. Your bay stays on this machine until you reset."
 };

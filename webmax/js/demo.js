@@ -606,12 +606,12 @@ window.mountDemo = function (root) {
     var s = document.createElement("style");
     s.id = "webmax-demo-css";
     s.textContent = [
-      "#demo-root{--shell:#14120f;--shell-lift:#1c1914;--shell-line:#3a3428;--shell-ink:#f3efe4;--shell-muted:#9a917f;background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(245,197,24,.04) 8px,rgba(245,197,24,.04) 16px),#14120f}",
-      "#demo-root .shell-bar{background:#0e0c0a;border-color:#f5c518;border-bottom-width:3px}",
-      "#demo-root .shell-title{font-family:Oswald,var(--sans);letter-spacing:.08em;text-transform:uppercase}",
-      "#demo-root .wm-plate{display:inline-block;font-family:\"IBM Plex Mono\",var(--mono);font-size:28px;letter-spacing:.12em;background:#111;color:#f4f4f0;border:3px solid #f4f4f0;border-radius:6px;padding:6px 14px 4px;margin:4px 0 10px;box-shadow:0 8px 0 #000}",
-      "#demo-root .ticket{border-radius:4px;background:#1a1713}",
-      "#demo-root .ticket.on{background:#2a220e;border-color:#f5c518}",
+      "#demo-root{--shell:#0c0c0f;--shell-lift:#151518;--shell-line:#232328;--shell-ink:#f4f4f5;--shell-muted:#8b8b93;background:var(--shell)}",
+      "#demo-root .shell-bar{background:#111114;border-bottom:1px solid var(--shell-line)}",
+      "#demo-root .shell-title{font-family:Oswald,var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--shell-ink)}",
+      "#demo-root .wm-plate{display:inline-block;font-family:\"IBM Plex Mono\",var(--mono);font-size:28px;letter-spacing:.12em;background:#111;color:#f4f4f0;border:3px solid #f4f4f0;border-radius:6px;padding:6px 14px 4px;margin:4px 0 10px}",
+      "#demo-root .ticket{border-radius:8px;background:var(--shell-lift);border-color:var(--shell-line)}",
+      "#demo-root .ticket.on{background:color-mix(in srgb,var(--accent) 14%,var(--shell-lift));border-color:var(--accent)}",
       "#demo-root .money,#demo-root .amt{font-family:\"IBM Plex Mono\",var(--mono)}",
       "#demo-root .wm-3{grid-template-columns:minmax(220px,.95fr) minmax(250px,1.15fr) minmax(210px,.9fr)}",
       "#demo-root .wm-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
@@ -634,7 +634,7 @@ window.mountDemo = function (root) {
       "#demo-root .wm-kv .k{color:var(--shell-muted)}",
       "#demo-root .wm-km-row{display:flex;align-items:center;gap:8px}",
       "#demo-root .wm-km{width:7.5rem;padding:6px 8px}",
-      "#demo-root .wm-due{color:color-mix(in srgb,var(--accent) 45%,#f0c080)}",
+      "#demo-root .wm-due{color:var(--accent)}",
       "#demo-root .wm-addbay{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}",
       "#demo-root .wm-addbay .wm-add,#demo-root .wm-addbay .btn-sm{grid-column:1 / -1}",
       "@media (max-width:860px){#demo-root .wm-3{grid-template-columns:1fr}#demo-root .wm-addbay{grid-template-columns:1fr}}"
