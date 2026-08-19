@@ -201,11 +201,12 @@ window.mountDemo = function (root) {
     var s = document.createElement("style");
     s.id = "classflow-demo-css";
     s.textContent = [
-      "#demo-root{--shell:#1b1712;--shell-lift:#241e16;--shell-line:#4a3d2c;--shell-ink:#f6ead2;--shell-muted:#b9a88a;background:radial-gradient(circle at 12% 8%,rgba(217,119,6,.18),transparent 42%),#1b1712}",
-      "#demo-root .shell-bar{background:#2a2218}",
-      "#demo-root .cf-sticker{display:inline-block;font-family:Fraunces,Georgia,serif;background:#f3e2b8;color:#3a2a12;padding:8px 16px 6px;border-radius:3px 12px 3px 12px;transform:rotate(-1.5deg);box-shadow:2px 3px 0 #0003}",
-      "#demo-root .ticket{border-radius:14px 4px 14px 4px;background:#261f16}",
-      "#demo-root .ticket.cf-in{background:#24301c}",
+      "#demo-root{--shell:#0c0c0f;--shell-lift:#151518;--shell-line:#232328;--shell-ink:#f4f4f5;--shell-muted:#8b8b93;background:var(--shell)}",
+      "#demo-root .shell-bar{background:#111114;border-bottom:1px solid var(--shell-line)}",
+      "#demo-root .cf-sticker{display:inline-block;font-family:Fraunces,Georgia,serif;background:color-mix(in srgb,var(--accent) 18%,#151518);color:var(--shell-ink);padding:8px 16px 6px;border:1px solid var(--accent);border-radius:8px}",
+      "#demo-root .ticket{border-radius:8px;background:var(--shell-lift);border-color:var(--shell-line)}",
+      "#demo-root .ticket.on{background:color-mix(in srgb,var(--accent) 14%,var(--shell-lift));border-color:var(--accent)}",
+      "#demo-root .ticket.cf-in{background:color-mix(in srgb,var(--ok) 12%,var(--shell-lift))}",
       "#demo-root .who{font-family:Fraunces,Georgia,serif}",
       "#demo-root .cf-2{grid-template-columns:minmax(260px,1.05fr) minmax(240px,.95fr)}",
       "#demo-root .cf-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",

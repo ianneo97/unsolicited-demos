@@ -297,12 +297,13 @@ window.mountDemo = function (root) {
     var s = document.createElement("style");
     s.id = "flexsoft-demo-css";
     s.textContent = [
-      "#demo-root{--shell:#101318;--shell-lift:#171c22;--shell-line:#2c3640;--shell-ink:#e8eef4;--shell-muted:#8b97a4;background:linear-gradient(180deg,#1a222c 0%,#101318 40%)}",
-      "#demo-root .shell-bar{background:#0b0e12;font-family:\"Chivo Mono\",var(--mono)}",
-      "#demo-root .fx-led{font-family:\"Chivo Mono\",var(--mono);font-size:34px;font-weight:700;letter-spacing:.06em;text-align:right;background:#07090c;color:#ff4d38;border:1px solid #3a1612;border-radius:2px;padding:10px 14px;margin:0 0 14px;text-shadow:0 0 12px rgba(255,77,56,.45)}",
-      "#demo-root .fx-rcpt{font-family:\"Chivo Mono\",var(--mono);font-size:12px;background:#f4efe4;color:#1a1712;border:none;border-radius:0;box-shadow:0 10px 24px rgba(0,0,0,.35)}",
-      "#demo-root .fx-rcpt-h,#demo-root .fx-rcpt .meta{color:#5a5348}",
-      "#demo-root .ticket{border-radius:2px}",
+      "#demo-root{--shell:#0c0c0f;--shell-lift:#151518;--shell-line:#232328;--shell-ink:#f4f4f5;--shell-muted:#8b8b93;background:var(--shell)}",
+      "#demo-root .shell-bar{background:#111114;border-bottom:1px solid var(--shell-line);font-family:\"Chivo Mono\",var(--mono)}",
+      "#demo-root .fx-led{font-family:\"Chivo Mono\",var(--mono);font-size:34px;font-weight:700;letter-spacing:.06em;text-align:right;background:#09090b;color:var(--accent);border:1px solid var(--shell-line);border-radius:8px;padding:10px 14px;margin:0 0 14px}",
+      "#demo-root .fx-rcpt{font-family:\"Chivo Mono\",var(--mono);font-size:12px;background:#111114;color:var(--shell-ink);border:1px solid var(--shell-line);border-radius:8px}",
+      "#demo-root .fx-rcpt-h,#demo-root .fx-rcpt .meta{color:var(--shell-muted)}",
+      "#demo-root .ticket{border-radius:8px;background:var(--shell-lift);border-color:var(--shell-line)}",
+      "#demo-root .ticket.on{background:color-mix(in srgb,var(--accent) 14%,var(--shell-lift));border-color:var(--accent)}",
       "#demo-root .money,#demo-root .amt{font-family:\"Chivo Mono\",var(--mono)}",
       "#demo-root .fx-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
       "#demo-root .fx-grow{flex:1;min-width:0}",
@@ -310,8 +311,8 @@ window.mountDemo = function (root) {
       "#demo-root .fx-x{padding:3px 8px;font-size:11px}",
       "#demo-root .fx-short{color:color-mix(in srgb,var(--danger) 70%,var(--shell-ink))}",
       "#demo-root .fx-modes{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}",
-      "#demo-root .fx-rcpt{margin-top:12px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--ok) 40%,var(--shell-line));border-radius:var(--r);background:var(--shell-lift);font-size:13px}",
-      "#demo-root .fx-rcpt-h{font-family:var(--mono);font-size:12px;margin-bottom:4px}",
+      "#demo-root .fx-rcpt{margin-top:12px;padding:10px 12px}",
+      "#demo-root .fx-rcpt-h{font-size:12px;margin-bottom:4px}",
       "#demo-root .ticket{align-items:center}",
       "@media (max-width:860px){#demo-root .fx-2{grid-template-columns:1fr}}"
     ].join("");

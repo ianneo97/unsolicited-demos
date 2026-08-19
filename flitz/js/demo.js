@@ -239,11 +239,12 @@ window.mountDemo = function (root) {
     var s = document.createElement("style");
     s.id = "flitz-demo-css";
     s.textContent = [
-      "#demo-root{--shell:#141210;--shell-lift:#1c1916;--shell-line:#3a322c;--shell-ink:#f6efe6;--shell-muted:#b9a898;background:repeating-linear-gradient(90deg,transparent,transparent 12px,rgba(226,74,42,.05) 12px,rgba(226,74,42,.05) 13px),#141210}",
+      "#demo-root{--shell:#0c0c0f;--shell-lift:#151518;--shell-line:#232328;--shell-ink:#f4f4f5;--shell-muted:#8b8b93;background:var(--shell)}",
+      "#demo-root .shell-bar{background:#111114;border-bottom:1px solid var(--shell-line)}",
       "#demo-root .shell-title{font-family:\"Barlow Condensed\",var(--sans);letter-spacing:.14em;text-transform:uppercase;font-size:16px}",
       "#demo-root .who{font-family:\"Barlow Condensed\",var(--sans);letter-spacing:.04em;text-transform:uppercase}",
-      "#demo-root .fz-cell{font-family:\"Barlow Condensed\",var(--sans);font-size:16px;font-weight:700;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}",
-      "#demo-root .ticket{border-radius:0;border-left:4px solid #e24a2a}",
+      "#demo-root .ticket{border-radius:8px;background:var(--shell-lift);border-color:var(--shell-line);border-left:3px solid var(--accent)}",
+      "#demo-root .ticket.on{background:color-mix(in srgb,var(--accent) 14%,var(--shell-lift));border-color:var(--accent)}",
       "#demo-root .fz-3{grid-template-columns:minmax(230px,1.05fr) minmax(220px,.95fr) minmax(200px,.85fr)}",
       "#demo-root .fz-grow{flex:1;min-width:0}",
       "#demo-root .ticket.fz-done{opacity:.6}",
