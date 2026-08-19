@@ -108,7 +108,7 @@ window.mountDemo = function (root) {
   function childPanel(k) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Child · " + k.name));
-    panel.appendChild(el("div", "serving-name", k.name));
+    panel.appendChild(el("div", "serving-name cf-sticker", k.name));
     panel.appendChild(el("p", "cf-sub", k.age + " thn · " + k.className + " · sample"));
 
     var kv = el("div", "cf-kv");
@@ -191,9 +191,22 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("classflow-demo-css")) return;
+    if (!document.getElementById("classflow-font")) {
+      var l = document.createElement("link");
+      l.id = "classflow-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "classflow-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#1b1712;--shell-lift:#241e16;--shell-line:#4a3d2c;--shell-ink:#f6ead2;--shell-muted:#b9a88a;background:radial-gradient(circle at 12% 8%,rgba(217,119,6,.18),transparent 42%),#1b1712}",
+      "#demo-root .shell-bar{background:#2a2218}",
+      "#demo-root .cf-sticker{display:inline-block;font-family:Fraunces,Georgia,serif;background:#f3e2b8;color:#3a2a12;padding:8px 16px 6px;border-radius:3px 12px 3px 12px;transform:rotate(-1.5deg);box-shadow:2px 3px 0 #0003}",
+      "#demo-root .ticket{border-radius:14px 4px 14px 4px;background:#261f16}",
+      "#demo-root .ticket.cf-in{background:#24301c}",
+      "#demo-root .who{font-family:Fraunces,Georgia,serif}",
       "#demo-root .cf-2{grid-template-columns:minmax(260px,1.05fr) minmax(240px,.95fr)}",
       "#demo-root .cf-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
       "#demo-root .cf-head h3{margin-bottom:0}",

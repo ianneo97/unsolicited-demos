@@ -231,7 +231,7 @@ window.mountDemo = function (root) {
   function cardPanel(j) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Job card"));
-    panel.appendChild(el("div", "serving-name", j.plate));
+    panel.appendChild(el("div", "serving-name wm-plate", j.plate));
     panel.appendChild(el("p", "wm-sub", j.make + " · " + j.year + " · " + j.size));
 
     var kv = el("div", "wm-kv");
@@ -448,9 +448,23 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("webmax-demo-css")) return;
+    if (!document.getElementById("webmax-font")) {
+      var l = document.createElement("link");
+      l.id = "webmax-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=IBM+Plex+Mono:wght@500;600&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "webmax-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#14120f;--shell-lift:#1c1914;--shell-line:#3a3428;--shell-ink:#f3efe4;--shell-muted:#9a917f;background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(245,197,24,.04) 8px,rgba(245,197,24,.04) 16px),#14120f}",
+      "#demo-root .shell-bar{background:#0e0c0a;border-color:#f5c518;border-bottom-width:3px}",
+      "#demo-root .shell-title{font-family:Oswald,var(--sans);letter-spacing:.08em;text-transform:uppercase}",
+      "#demo-root .wm-plate{display:inline-block;font-family:\"IBM Plex Mono\",var(--mono);font-size:28px;letter-spacing:.12em;background:#111;color:#f4f4f0;border:3px solid #f4f4f0;border-radius:6px;padding:6px 14px 4px;margin:4px 0 10px;box-shadow:0 8px 0 #000}",
+      "#demo-root .ticket{border-radius:4px;background:#1a1713}",
+      "#demo-root .ticket.on{background:#2a220e;border-color:#f5c518}",
+      "#demo-root .money,#demo-root .amt{font-family:\"IBM Plex Mono\",var(--mono)}",
       "#demo-root .wm-3{grid-template-columns:minmax(220px,.95fr) minmax(250px,1.15fr) minmax(210px,.9fr)}",
       "#demo-root .wm-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
       "#demo-root .wm-head h3{margin-bottom:0}",

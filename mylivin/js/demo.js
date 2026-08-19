@@ -138,7 +138,8 @@ window.mountDemo = function (root) {
   function monthPanel(u) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "This month · " + u.no));
-    panel.appendChild(el("div", "serving-name", u.owner));
+    panel.appendChild(el("div", "serving-name lv-unit", u.no));
+    panel.appendChild(el("div", "who", u.owner));
     panel.appendChild(el("p", "lv-sub", u.no + " · Residensi Demo, SS7 · sample"));
 
     var r = rates(u.sqft);
@@ -230,9 +231,21 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("mylivin-demo-css")) return;
+    if (!document.getElementById("mylivin-font")) {
+      var l = document.createElement("link");
+      l.id = "mylivin-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "mylivin-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#0f1c1b;--shell-lift:#152624;--shell-line:#2c4a46;--shell-ink:#e7f3f1;--shell-muted:#8fb0ab;background:linear-gradient(180deg,#163330,#0f1c1b)}",
+      "#demo-root .shell-title{font-family:\"Instrument Serif\",Georgia,serif;font-size:18px;letter-spacing:0;text-transform:none;font-weight:400}",
+      "#demo-root .lv-unit{font-family:\"Instrument Serif\",Georgia,serif;font-size:40px;letter-spacing:.02em;line-height:1}",
+      "#demo-root .lv-qno{width:36px;height:36px;border-radius:50%;border:1px solid #d4b483;display:flex;align-items:center;justify-content:center;color:#d4b483}",
+      "#demo-root .ticket{border-radius:999px;padding:10px 14px}",
       "#demo-root .lv-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
       "#demo-root .lv-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
       "#demo-root .lv-head h3{margin-bottom:0}",

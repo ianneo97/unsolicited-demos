@@ -120,7 +120,8 @@ window.mountDemo = function (root) {
   function matterPanel(m) {
     m.wip = wipOf(m);
     var panel = el("div", "panel");
-    panel.appendChild(el("h3", "", "Matter · " + m.no));
+    panel.appendChild(el("h3", "", "Matter"));
+    panel.appendChild(el("div", "cm-cite", m.no));
     panel.appendChild(el("div", "serving-name", m.title));
     panel.appendChild(el("p", "cm-sub", m.client + " · " + rm(m.rate) + " / hour"));
 
@@ -248,9 +249,23 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("corematter-demo-css")) return;
+    if (!document.getElementById("corematter-font")) {
+      var l = document.createElement("link");
+      l.id = "corematter-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "corematter-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#161318;--shell-lift:#1e1a22;--shell-line:#3d3344;--shell-ink:#f3eadf;--shell-muted:#b5a394;background:#161318}",
+      "#demo-root .shell-bar{border-bottom:1px solid #c4b8a0;background:#120f14}",
+      "#demo-root .cm-cite{font-family:\"Cormorant Garamond\",Georgia,serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#c4b8a0;margin-bottom:4px}",
+      "#demo-root .serving-name{font-family:\"Cormorant Garamond\",Georgia,serif;font-size:28px;font-weight:600;line-height:1.15}",
+      "#demo-root .ticket{border-radius:0;border-left:3px solid #6b3a4a}",
+      "#demo-root .cm-pdf{background:#f4efe6;color:#1c1712;border:1px solid #c4b8a0}",
+      "#demo-root .cm-pdf-h,#demo-root .cm-pdf .meta,#demo-root .cm-pdf .empty{color:#6b5e50}",
       "#demo-root .cm-2{grid-template-columns:minmax(240px,.9fr) minmax(280px,1.2fr)}",
       "#demo-root .cm-grow{flex:1;min-width:0}",
       "#demo-root .cm-sub{font-size:13px;color:var(--shell-muted);margin-bottom:10px}",
