@@ -8,6 +8,6 @@ window.SITE = {
   original_url: "https://flexsoft-tech.com/",
   accent: "#2b5ea7",
   accentInk: "#ffffff",
-  demo_lead: "Scan five grocery SKUs. Watch SST 6%. Tender cash. Read change. Issue e-invoice. It stays on the page.",
+  demo_lead: "Scan SKUs. Switch cash or card. Watch the drawer. Take payment. Read the numbered receipt and shelf after sale.",
   note: "This is a rebuild of flexsoft-tech.com. The live site is a dated brochure with no POS UI. KryptoPOS timed out 19 Aug, so this is the retail till that loads. Sample SKUs only."
 };

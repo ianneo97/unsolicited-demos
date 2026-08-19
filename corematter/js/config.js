@@ -8,6 +8,6 @@ window.SITE = {
   original_url: "https://corematter.biz/",
   accent: "#4a3d6b",
   accentInk: "#ffffff",
-  demo_lead: "Open a matter. Start the timer. Watch WIP. Raise bill. Client account and office account move. Open the SST preview. No PDF download.",
+  demo_lead: "Start the timer. Stop it to write a time log. Add filing RM 50. Pay into trust. Raise bill. Client vs office moves.",
   note: "This is a rebuild of corematter.biz. The live site is a leftover agency template with a fake team and “Ceating brand identities”. EasyPro and MyLegalSoft are the same seat. Sample matters only."
 };
