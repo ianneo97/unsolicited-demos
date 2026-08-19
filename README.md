@@ -7,7 +7,7 @@ clinica/ -- Clinica ERP front-desk: walk-in queue, call next, mark done, consult
 magsys/ -- MAGSYS module picker (C-MagSys, D-MagSys, H-MagSys) switches todays appointments and one patient chart.
 teera/ -- TEERA.AI bookkeeping inbox: four sample MYR transactions, one-click categorize, tiny P and L, MyInvois stamp.
 kumodoc/ -- kumoDoc clinic OS: queue, EMR note (chief complaint / plan), TPA claim pending or approved. Three sample visits.
-webmax/ -- WebMax workshop job card: customer + km + last jobs, parts, next service, WhatsApp bill, MyInvois.
+webmax/ -- WebMax live workshop bay (MVP): add your plate, parts, bill. Saved in the browser. Reset sample.
 advelsoft/ -- Advelsoft JMB ledger: Residensi Demo units, 30/60/90 aging, August bill, receipt, reminder.
 didi/ -- Didi pharmacy till: OTC vs Rx, FEFO, script label, cash tender and change, shelf after sale.
 flexsoft/ -- Flexsoft retail till: grocery SKUs, SST 6%, cash tender, change, MyInvois.
