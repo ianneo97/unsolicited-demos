@@ -7,7 +7,7 @@ window.SITE = {
   city: "One Mont Kiara",
   original_url: "https://classflow.my/",
   accent: "#d97706",
-  accentInk: "#1a0e06",
+  accentInk: "#ffffff",
   demo_lead: "Face-scan in. Scan out. Mark absent. Two kids have allergies and fee due. Ping the parent. Issue August. Fees today moves.",
   note: "This is a rebuild of classflow.my. The live homepage stuffs “kindergarten software” into every paragraph. This is a tadika morning board, not StudentQR, not AOne, not KindyPro. Sample children only."
 };

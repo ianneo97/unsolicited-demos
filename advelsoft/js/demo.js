@@ -351,11 +351,13 @@ window.mountDemo = function (root) {
     var s = document.createElement("style");
     s.id = "advelsoft-demo-css";
     s.textContent = [
-      "#demo-root{--shell:#1a1f1c;--shell-lift:#222925;--shell-line:#3a463e;--shell-ink:#eef3ee;--shell-muted:#9aada3;background:#1a1f1c}",
-      "#demo-root .ad-door{display:inline-block;font-family:Fraunces,Georgia,serif;font-size:26px;background:#c4a574;color:#1a140c;padding:8px 16px 6px;border-radius:2px;letter-spacing:.04em;margin:4px 0 8px}",
+      "#demo-root{--shell:#0c0c0f;--shell-lift:#151518;--shell-line:#232328;--shell-ink:#f4f4f5;--shell-muted:#8b8b93;background:var(--shell)}",
+      "#demo-root .shell-bar{background:#111114;border-bottom:1px solid var(--shell-line)}",
+      "#demo-root .ad-door{display:inline-block;font-family:Fraunces,Georgia,serif;font-size:26px;background:color-mix(in srgb,var(--accent) 22%,#151518);color:var(--shell-ink);border:1px solid var(--accent);padding:8px 16px 6px;border-radius:8px;letter-spacing:.04em;margin:4px 0 8px}",
       "#demo-root .ad-qno{font-family:Fraunces,Georgia,serif}",
-      "#demo-root .ad-age-cell{border-radius:2px;background:#1e2622}",
-      "#demo-root .ticket{border-radius:2px}",
+      "#demo-root .ad-age-cell{border-radius:8px;background:var(--shell-lift)}",
+      "#demo-root .ticket{border-radius:8px;background:var(--shell-lift);border-color:var(--shell-line)}",
+      "#demo-root .ticket.on{background:color-mix(in srgb,var(--accent) 14%,var(--shell-lift));border-color:var(--accent)}",
       "#demo-root .ad-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
       "#demo-root .ad-qwrap{flex:0 0 auto}",
       "#demo-root .ad-qno{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:-.03em;min-width:28px;color:color-mix(in srgb,var(--accent) 45%,var(--shell-ink))}",
@@ -365,7 +367,7 @@ window.mountDemo = function (root) {
       "#demo-root .ad-sub{font-size:13px;color:var(--shell-muted);margin-bottom:10px}",
       "#demo-root .ad-kv{display:grid;grid-template-columns:9rem 1fr;gap:8px 14px;font-size:14px;margin:4px 0 14px}",
       "#demo-root .ad-kv .k{color:var(--shell-muted)}",
-      "#demo-root .ad-due{color:color-mix(in srgb,var(--accent) 40%,#f0c080)}",
+      "#demo-root .ad-due{color:var(--accent)}",
       "#demo-root .tx.ad-paid{opacity:.55}",
       "#demo-root .ad-flash{margin-top:8px;font-family:var(--mono);font-size:11px;color:#b7e0cc}",
       "#demo-root .ticket{align-items:center}",
