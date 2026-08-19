@@ -20,6 +20,12 @@ dclix/ -- D-Clix club morning: eight students, QR in, grading fee, parent ping.
 gussmann/ -- Gussmann haulage: six ROTs, truck assign, POD, invoice. Fake grid.
 yuran/ -- Yuran.my KAFA treasurer: eight payers, overdue total, WhatsApp pay link, reprint.
 thelaundro/ -- theLaundro owner phone: six machines, remote start, today’s RM.
+pos2u/ -- POS2U kopitiam tables: QR order, kitchen ticket, split bill, SST 6%.
+leafclover/ -- LeafClover Technology 3PL warehouse WMS: inbound, putaway, FIFO picking, billable charges.
+sisemas/ -- SisEmas kedai emas POS: gram stock, QR tag, trade-in / buy-back, e-invoice.
+efox/ -- EFOX money-services till: live MYR rates, AML checks, and dual-currency receipts.
+maid/ -- MICES Maid IMS maid-agency files: employers, maids, documents, permit expiry and runaway cases.
+masjidpro/ -- MasjidProMy mosque / surau OS for kariah, khairat, infaq, Jumaat attendance, takwim and bantuan.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
 
-Slice 4 P0 is in. Sell reviews. Do not email. P1 if needed: pos2u, ultrapark, labeau.
+Slice 4 P0 and P1 are in. Slice 5 P0 is in. Sell reviews. Do not email. Deferred pending gates: ultrapark, labeau. Slice 5 P1 deferred: ksewa, skr, reams.
