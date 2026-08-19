@@ -227,6 +227,7 @@ window.mountDemo = function (root) {
   function ledgerPanel(u) {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Ledger · " + u.no));
+    panel.appendChild(el("div", "ad-door", u.no));
     panel.appendChild(el("div", "serving-name", u.owner));
     panel.appendChild(el("p", "ad-sub", u.no + " · " + u.sqft + " sq ft · Residensi Demo"));
 
@@ -340,9 +341,21 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("advelsoft-demo-css")) return;
+    if (!document.getElementById("advelsoft-font")) {
+      var l = document.createElement("link");
+      l.id = "advelsoft-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "advelsoft-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#1a1f1c;--shell-lift:#222925;--shell-line:#3a463e;--shell-ink:#eef3ee;--shell-muted:#9aada3;background:#1a1f1c}",
+      "#demo-root .ad-door{display:inline-block;font-family:Fraunces,Georgia,serif;font-size:26px;background:#c4a574;color:#1a140c;padding:8px 16px 6px;border-radius:2px;letter-spacing:.04em;margin:4px 0 8px}",
+      "#demo-root .ad-qno{font-family:Fraunces,Georgia,serif}",
+      "#demo-root .ad-age-cell{border-radius:2px;background:#1e2622}",
+      "#demo-root .ticket{border-radius:2px}",
       "#demo-root .ad-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
       "#demo-root .ad-qwrap{flex:0 0 auto}",
       "#demo-root .ad-qno{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:-.03em;min-width:28px;color:color-mix(in srgb,var(--accent) 45%,var(--shell-ink))}",

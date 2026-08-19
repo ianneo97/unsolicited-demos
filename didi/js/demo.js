@@ -254,6 +254,7 @@ window.mountDemo = function (root) {
   function billPanel() {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Till + script"));
+    if (hasRx()) panel.appendChild(el("div", "dd-rx", "℞  " + rxNo));
 
     var kv = el("div", "dd-kv");
     kv.appendChild(el("div", "k", "Rx no"));
@@ -442,9 +443,21 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("didi-demo-css")) return;
+    if (!document.getElementById("didi-font")) {
+      var l = document.createElement("link");
+      l.id = "didi-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "didi-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#0d2a26;--shell-lift:#12332e;--shell-line:#2a564e;--shell-ink:#e8f6f2;--shell-muted:#8fb8b0;background:radial-gradient(circle at 90% 0,rgba(62,207,142,.12),transparent 36%),#0d2a26}",
+      "#demo-root .dd-rx{font-family:Literata,Georgia,serif;font-size:28px;color:#c45c5c;letter-spacing:.04em;margin:0 0 12px}",
+      "#demo-root .dd-label{font-family:Literata,Georgia,serif;background:#f7f1e4;color:#1c1712;border:1px solid #c45c5c}",
+      "#demo-root .dd-label-h,#demo-root .dd-label .meta{color:#5c4038}",
+      "#demo-root .ticket{border-radius:6px}",
       "#demo-root .dd-3{grid-template-columns:minmax(220px,.95fr) minmax(240px,1.1fr) minmax(230px,1fr)}",
       "#demo-root .dd-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}",
       "#demo-root .dd-head h3{margin-bottom:0}",

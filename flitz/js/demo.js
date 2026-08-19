@@ -229,9 +229,21 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("flitz-demo-css")) return;
+    if (!document.getElementById("flitz-font")) {
+      var l = document.createElement("link");
+      l.id = "flitz-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "flitz-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#141210;--shell-lift:#1c1916;--shell-line:#3a322c;--shell-ink:#f6efe6;--shell-muted:#b9a898;background:repeating-linear-gradient(90deg,transparent,transparent 12px,rgba(226,74,42,.05) 12px,rgba(226,74,42,.05) 13px),#141210}",
+      "#demo-root .shell-title{font-family:\"Barlow Condensed\",var(--sans);letter-spacing:.14em;text-transform:uppercase;font-size:16px}",
+      "#demo-root .who{font-family:\"Barlow Condensed\",var(--sans);letter-spacing:.04em;text-transform:uppercase}",
+      "#demo-root .fz-cell{font-family:\"Barlow Condensed\",var(--sans);font-size:16px;font-weight:700;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}",
+      "#demo-root .ticket{border-radius:0;border-left:4px solid #e24a2a}",
       "#demo-root .fz-3{grid-template-columns:minmax(230px,1.05fr) minmax(220px,.95fr) minmax(200px,.85fr)}",
       "#demo-root .fz-grow{flex:1;min-width:0}",
       "#demo-root .ticket.fz-done{opacity:.6}",

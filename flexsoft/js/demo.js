@@ -118,6 +118,9 @@ window.mountDemo = function (root) {
   function tillPanel() {
     var panel = el("div", "panel");
     panel.appendChild(el("h3", "", "Till · SST 6%"));
+    var led = el("div", "fx-led", rm(total()));
+    led.setAttribute("aria-label", "Till total");
+    panel.appendChild(led);
     if (!basket.length) {
       panel.appendChild(el("p", "empty", "Basket empty. Scan a SKU."));
     }
@@ -284,9 +287,23 @@ window.mountDemo = function (root) {
 
   function injectCss() {
     if (document.getElementById("flexsoft-demo-css")) return;
+    if (!document.getElementById("flexsoft-font")) {
+      var l = document.createElement("link");
+      l.id = "flexsoft-font";
+      l.rel = "stylesheet";
+      l.href = "https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@500;700&display=swap";
+      document.head.appendChild(l);
+    }
     var s = document.createElement("style");
     s.id = "flexsoft-demo-css";
     s.textContent = [
+      "#demo-root{--shell:#101318;--shell-lift:#171c22;--shell-line:#2c3640;--shell-ink:#e8eef4;--shell-muted:#8b97a4;background:linear-gradient(180deg,#1a222c 0%,#101318 40%)}",
+      "#demo-root .shell-bar{background:#0b0e12;font-family:\"Chivo Mono\",var(--mono)}",
+      "#demo-root .fx-led{font-family:\"Chivo Mono\",var(--mono);font-size:34px;font-weight:700;letter-spacing:.06em;text-align:right;background:#07090c;color:#ff4d38;border:1px solid #3a1612;border-radius:2px;padding:10px 14px;margin:0 0 14px;text-shadow:0 0 12px rgba(255,77,56,.45)}",
+      "#demo-root .fx-rcpt{font-family:\"Chivo Mono\",var(--mono);font-size:12px;background:#f4efe4;color:#1a1712;border:none;border-radius:0;box-shadow:0 10px 24px rgba(0,0,0,.35)}",
+      "#demo-root .fx-rcpt-h,#demo-root .fx-rcpt .meta{color:#5a5348}",
+      "#demo-root .ticket{border-radius:2px}",
+      "#demo-root .money,#demo-root .amt{font-family:\"Chivo Mono\",var(--mono)}",
       "#demo-root .fx-2{grid-template-columns:minmax(240px,.95fr) minmax(280px,1.15fr)}",
       "#demo-root .fx-grow{flex:1;min-width:0}",
       "#demo-root .fx-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}",
