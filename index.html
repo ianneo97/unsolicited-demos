@@ -4,23 +4,106 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Unsolicited demos — Ian Neo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font: 16px/1.5 system-ui, sans-serif; max-width: 40rem; margin: 4rem auto; padding: 0 1.25rem; color: #111; }
-    h1 { font-size: 1.35rem; }
-    a { color: #1a4d48; }
-    li { margin: 0.5rem 0; }
-    p.note { color: #555; font-size: 0.9rem; }
+    :root {
+      --bg: #09090b;
+      --ink: #f4f4f5;
+      --muted: #a1a1aa;
+      --line: #1c1c20;
+      --accent: #a1a1aa;
+      --sans: "Geist", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    .wrap { width: min(720px, calc(100% - 40px)); margin: 0 auto; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 72px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+    }
+    .who {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .lede {
+      padding: 28px 0 8px;
+      color: var(--muted);
+      max-width: 42ch;
+    }
+    ol { list-style: none; margin-top: 20px; }
+    li { border-top: 1px solid var(--line); }
+    li:last-child { border-bottom: 1px solid var(--line); }
+    a.row {
+      display: grid;
+      grid-template-columns: minmax(120px, 1fr) minmax(140px, 1.4fr) auto;
+      gap: 12px 20px;
+      align-items: baseline;
+      padding: 18px 0;
+      text-decoration: none;
+      color: inherit;
+    }
+    a.row:hover .name { color: #fff; }
+    a.row:hover .go { opacity: 1; }
+    .name {
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+    .desc { color: var(--muted); font-size: 14px; }
+    .go {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+    footer {
+      padding: 28px 0 48px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media (max-width: 560px) {
+      header { padding-top: 48px; }
+      a.row { grid-template-columns: 1fr auto; }
+      .desc { grid-column: 1; }
+    }
   </style>
 </head>
 <body>
-  <h1>Unsolicited demos</h1>
-  <p>Thin working rebuilds of four Malaysian product sites. Sample data. Built from the public pages.</p>
-  <ul>
-    <li><a href="clinica/">Clinica ERP</a> — clinic front desk</li>
-    <li><a href="magsys/">MAGSYS</a> — clinic / dental / hospital HIS</li>
-    <li><a href="teera/">TEERA.AI</a> — bookkeeping + MyInvois</li>
-    <li><a href="kumodoc/">kumoDoc</a> — clinic OS</li>
-  </ul>
-  <p class="note">Ian Neo · Kuala Lumpur</p>
+  <div class="wrap">
+    <header>
+      <h1>Unsolicited demos</h1>
+      <p class="who">Ian Neo</p>
+    </header>
+    <p class="lede">Thin working rebuilds of four Malaysian product sites. Sample data. Built from the public pages.</p>
+    <ol>
+      <li><a class="row" href="clinica/"><span class="name">Clinica ERP</span><span class="desc">Clinic front desk</span><span class="go">→</span></a></li>
+      <li><a class="row" href="magsys/"><span class="name">MAGSYS</span><span class="desc">Clinic / dental / hospital HIS</span><span class="go">→</span></a></li>
+      <li><a class="row" href="teera/"><span class="name">TEERA.AI</span><span class="desc">Bookkeeping + MyInvois</span><span class="go">→</span></a></li>
+      <li><a class="row" href="kumodoc/"><span class="name">kumoDoc</span><span class="desc">Clinic OS</span><span class="go">→</span></a></li>
+    </ol>
+    <footer>Kuala Lumpur · Unsolicited · Built from the public sites</footer>
+  </div>
 </body>
 </html>

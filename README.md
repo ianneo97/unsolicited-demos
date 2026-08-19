@@ -1,11 +1,10 @@
 # Unsolicited software demos
-
-Thin working rebuilds of four public Malaysian product sites. Sample data.
-Same chrome on every page. Copy and the demo module are a data merge.
-
-- clinica/ — clinic front desk
-- magsys/ — C / D / H-MagSys picker
-- teera/ — bookkeeping inbox + MyInvois stamp
-- kumodoc/ — clinic OS (queue, EMR, TPA)
-
-Unsolicited demo. Built in a weekend from the public site. — Ian Neo
+Reusable landing plus a thin working demo.
+Same chrome on every site. Copy and the demo module are a data merge, not four unique generated sites.
+Vanilla HTML CSS JS. No build step.
+template/ is the master. Shared files: index.html, css/style.css, js/app.js. Per company: js/config.js and js/demo.js.
+clinica/ -- Clinica ERP front-desk: walk-in queue, call next, mark done, consultation invoice plus e-invoice toggle. Three sample patients.
+magsys/ -- MAGSYS module picker (C-MagSys, D-MagSys, H-MagSys) switches todays appointments and one patient chart.
+teera/ -- TEERA.AI bookkeeping inbox: four sample MYR transactions, one-click categorize, tiny P and L, MyInvois stamp.
+kumodoc/ -- kumoDoc clinic OS: queue, EMR note (chief complaint / plan), TPA claim pending or approved. Three sample visits.
+Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
