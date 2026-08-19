@@ -8,3 +8,5 @@ magsys/ -- MAGSYS module picker (C-MagSys, D-MagSys, H-MagSys) switches todays a
 teera/ -- TEERA.AI bookkeeping inbox: four sample MYR transactions, one-click categorize, tiny P and L, MyInvois stamp.
 kumodoc/ -- kumoDoc clinic OS: queue, EMR note (chief complaint / plan), TPA claim pending or approved. Three sample visits.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
+
+Next work: [SLICE2.md](./SLICE2.md) (coding brief) and [ranked-slice2.md](./ranked-slice2.md) (scores). P0: webmax, advelsoft, didi. Sell reviews. Do not email.
