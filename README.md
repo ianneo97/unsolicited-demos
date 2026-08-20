@@ -26,6 +26,11 @@ sisemas/ -- SisEmas kedai emas POS: gram stock, QR tag, trade-in / buy-back, e-i
 efox/ -- EFOX money-services till: live MYR rates, AML checks, and dual-currency receipts.
 maid/ -- MICES Maid IMS maid-agency files: employers, maids, documents, permit expiry and runaway cases.
 masjidpro/ -- MasjidProMy mosque / surau OS for kariah, khairat, infaq, Jumaat attendance, takwim and bantuan.
+ucd/ -- UCD Software used-car dealer DMS for yard stock, VSO and hutang-tepi loan tracking.
+buttonwood/ -- Buttonwood forwarder job files from opening through BL and invoice.
+vpatrol/ -- V-Patrol security-guard operations for rostering, patrol checkpoints and payroll.
+pestpro/ -- PestPro (EWS) pest-control operations software for contracts, technicians, reports and invoicing.
+grasp/ -- Grasp Temple (Grasp Software Solutions) temple / tokong management for pooja tickets, donations, hall booking and kiosks.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
 
-Slice 4 P0 and P1 are in. Slice 5 P0 is in. Sell reviews. Do not email. Deferred pending gates: ultrapark, labeau. Slice 5 P1 deferred: ksewa, skr, reams.
+Slice 4 P0 and P1 are in. Slice 5 P0 is in. Slice 6 P0 is in. Sell reviews. Do not email. Deferred pending gates: ultrapark, labeau. Slice 5 P1 deferred: ksewa, skr, reams. Slice 6 P1 deferred pending gates: ejenplus, greenflow, libraflow, epusara, strikezone.
