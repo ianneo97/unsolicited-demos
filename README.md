@@ -31,6 +31,9 @@ buttonwood/ -- Buttonwood forwarder job files from opening through BL and invoic
 vpatrol/ -- V-Patrol security-guard operations for rostering, patrol checkpoints and payroll.
 pestpro/ -- PestPro (EWS) pest-control operations software for contracts, technicians, reports and invoicing.
 grasp/ -- Grasp Temple (Grasp Software Solutions) temple / tokong management for pooja tickets, donations, hall booking and kiosks.
+greenflow/ -- GreenFlow HP hire-purchase desk for agreements, instalments due and receipts.
+libraflow/ -- LibraFlow small-library circulation for members, barcode checkout and overdue tracking.
+epusara/ -- e-PUSARA cemetery registry for finding arwah, assigning burial plots and tracking nisan work.
 Footer on every page: Unsolicited demo. Built in a weekend from your public site. -- Ian Neo
 
-Slice 4 P0 and P1 are in. Slice 5 P0 is in. Slice 6 P0 is in. Sell reviews. Do not email. Deferred pending gates: ultrapark, labeau. Slice 5 P1 deferred: ksewa, skr, reams. Slice 6 P1 deferred pending gates: ejenplus, greenflow, libraflow, epusara, strikezone.
+Slice 4 P0 and P1 are in. Slice 5 P0 is in. Slice 6 P0 is in. Slice 6 P1 greenflow/libraflow/epusara are in; ejenplus and strikezone remain unbuilt because their city gate failed (live pages print no street address — ejenplus footer has only the PLT registration, strikezone JSON-LD has only addressCountry Malaysia). Sell reviews. Do not email. Deferred pending gates: ultrapark, labeau. Slice 5 P1 deferred: ksewa, skr, reams.
