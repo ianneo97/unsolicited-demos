@@ -93,6 +93,7 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 9. **xgen/** — gym: sign member → PT pack → door check-in (Puchong street)
 10. **weddie/** — wedding guest: add guest → seat table → door check-in (phone only)
 11. **speedbrick/** — contractor claim: open job → progress claim → VO (PJ street). Same construction leftover family as Bina Cloud — only if Ian wants a second construction desk.
+12. **simsalon/** — spa: book slot → redeem package → commission (Ulu Tiram street)
 
 ### Skip unless Ian says so
 
@@ -103,6 +104,9 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 - **fitnow/** — same gym seat as XGEN
 - **buildtrack/** / **buildspace/** / **niuace/** — finer Bina Cloud / Speedbrick leftover
 - **treom/** — Johor waste IoT, thin, not KL
+- **ipsis/** / **eschool/** — same school seat as ASIS
+- **thaipos/** — same spa seat as SimSalon
+- **ezpss/** — same library seat as AntLibrary
 - slice-4, slice-5, slice-6, slice-7 P0/P1 folders
 
 ---
@@ -167,6 +171,8 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 **weddie/** — https://weddie.my/. Worst: ©2023; no email. **Desk:** 6 guests, add → seat table → door check-in. Phone only. Not hotel PMS.
 
 **speedbrick/** — https://speedbrick.com/. Worst: WP 5.3 + lorem ipsum accordion. **Desk:** 6 jobs, progress claim MYR → VO log. PJ SS2 street. Same construction leftover family as Bina Cloud — only if Ian wants two construction desks. Not eSiteView diary.
+
+**simsalon/** — http://www.simsalonsystem.com/. Worst: Drupal ©2014 + leftover GST + keyword dump. **Desk:** 6 clients, book slot → redeem package → commission. Ulu Tiram street. Not LABÉAU. Not hotel PMS.
 
 ---
 
