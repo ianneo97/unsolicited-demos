@@ -22,6 +22,9 @@ Newly scored live sites this slice: **81**. New keeps: **23**. Twin/fine drops i
 | 8 | FMPOS / GreenPOS | Independent petrol-station POS + dispenser site-controller | http://www.fmpos.mbjs.com.my/ | Kuala Lumpur (Suite 33-01, Level 33, Keck Seng Tower, Jalan Bukit Bintang, 55100 — on homepage) | Footer leftover **“This website was made with Mobirise”**. Leftover **“Whatapp”**, **“Tokhiem”**, **“it expandable”**. HTTP only. | Petrol desk: authorize dispenser → drop client in waiting zone → tank reconcile. Not Pitstop. Not workshop. | mahadi@fmpos.net · +60 111 028 6886 (printed “Call or Whatapp”). |
 | 8 | Medist Healthcare (MH Lab Connect) | Medical-lab LIS: register patient, accession / barcode tube, analyzer result, QC | https://medisthealthcare.my/ | **unknown** (page prints “Malaysia” only) | Hero leftover **dark-blue / dark-red bordered “MH Lab Connect”** plus yellow body on a photo overlay. Footer Privacy/Terms/Support are `href="#"`. No Jalan. | Lab desk: register patient → print tube label → verify result. Not MAGSYS HIS. Not Luimewah. Not Salinee RIS. | medisthcare@gmail.com (printed on `/#contact`). No phone. Do not invent a street. |
 | 8 | DooUMS (Dabudoo Technology) | Umrah / haji agency OS: jemaah record, multi-user, cloud | https://dooums.com/ | **unknown** (no Jalan) | Footer frozen **“Dabudoo Technology © 2019”**. Feature tiles are generic hosting. `/contact.html` is a dead POST form. Hubungi is WhatsApp-only. | Umrah desk: daftar jemaah → group / visa file. Not cinema. Not TrevoFlow. | WhatsApp **011-5950 9509** (`api.whatsapp.com/send/?phone=601159509509`). No public email. Do not invent. |
+| 7 | Speedbrick | Contractor OS: progress claim, VO / EOT, certificate, subcon claim | https://speedbrick.com/ | Petaling Jaya (113A, Jalan SS2/6, 47300 — JSON-LD on the live home) | Home still runs **WordPress 5.3**. Featured accordion leftover **lorem ipsum**. Schema leftover **servedCuisine: pictureengine**. `/about` 404. | Contractor claim desk: open a job → raise progress claim → log a VO. Same construction leftover family as Bina Cloud — do not also P0. | info@speedbrick.com · +6013 950 6728. |
+| 6 | BuildSpace (Global PCK Solutions) | QS / BQ / e-tender leftover | https://buildspace.my/ | Kuala Lumpur (city only — no Jalan on the live home) | Typos **“mordernize”**, **“strenghtening”**. `/contact` 404. Same construction family. | Same construction leftover — do not also P0 | support@pck.com.my · +603-4162 3698 |
+| 4 | Treom Tech | Waste / scheduled-collection OS: bin sensor + operator dashboard + driver app | https://treom.io/ | Iskandar Puteri, Johor (C-GF-01, Medini 6, Jalan Medini Sentral 5, 79250) | Framer 2025. Rekkon still **“OCT 2024 PROTOTYPE”**. Not KL. Thin. | Waste route desk — only if Ian wants waste | info@treom.io · +607-291 6759 |
 | 7 | ASIS (Awfatech) | School OS: daftar, yuran, kehadiran, peperiksaan, e-Parent, e-Hafazan | https://www.asis.my/ | Subang Jaya (No. 5-1, Jalan USJ1/1A, Regalia Business Center, 47600 — on homepage) | Page last stamped **2018-08-21**. Trust counters render **0 Pengguna / 0 Malaysia**. Leftover **GST**. Leftover **“Pengguna Adalah Elemen Yang Paling Beharga”**. | School desk: daftar murid → yuran reminder → peperiksaan. Not ClassFlow tadika. Not Yuran treasurer. Not StudentQR. | info@awfatech.com · 03-8023 5250 · HOTLINE 1300 22 8055 |
 | 7 | PEPATIH MySekolah | SK/SMK OS: kehadiran, PBD, peperiksaan, amalan baik kiosk | https://www.sekolahmalaysia.com/ | **unknown** | Homepage **is** install links. Last dated posts **2022**. Leftover **“disipin”**, **“muatturn”**. Same school seat as ASIS. | Same school desk — do not also P0 | 016-2660020 (WhatsApp / Telegram / SMS). No email on the live home. Do not invent. |
 | 6 | MyPelajar (Helodotcom) | Cashless school OS: e-attendance card, e-wallet, e-library | https://helodotcom.my/mypelajar.html | Multi-state (Papar, Sandakan, Sibu, Kluang, Pasir Mas, Kuantan, Alor Setar, Bahau). Leftover empty **Perak** row. | Leftover **“Perak Helogang Office / -”**. Leftover **“communcation”**. Same school seat. | Same school desk — do not also P0 | No public email on live `/contact.html`. Do not invent. |
@@ -46,6 +49,7 @@ Newly scored live sites this slice: **81**. New keeps: **23**. Twin/fine drops i
 | Slug | Email / phone |
 | --- | --- |
 | esoft-confinement | colim@e-soft.com.my · 04-4242230 · 012-4787917 |
+| speedbrick | info@speedbrick.com · +6013 950 6728 |
 | binacloud | info@bina.cloud · 03-8309 4732. Do not use maestronoob@gmail.com. |
 | xgen | contact@xgen.com.my · +60 12-214 8689. Do not use contact@example.com. |
 | weddie | 013-7000 229. No email. |
@@ -73,10 +77,11 @@ Newly scored live sites this slice: **81**. New keeps: **23**. Twin/fine drops i
 8. **Albatrozz** (Bangsar South) — golf tee sheet. Thin vs modern rewrite — only if Ian wants golf.
 9. **XGEN** (Puchong) — gym membership.
 10. **Weddie** — wedding guest check-in (phone only).
+11. **Speedbrick** (PJ) — contractor progress claim. Same construction leftover family as Bina Cloud — do not also P0.
 
 ## Do not also P0
 
-PEPATIH, MyPelajar, ADABS, Tenjin, SkoolBeez (ASIS school twins). HIRO (FMPOS petrol twin). Officio, BizAid, ezcosec (ACE CoSec twins). Hi Class (tuition leftover, crowded). Fitnow (XGEN gym twin). BuildTrack (finer Bina Cloud leftover). Tuis.my / SimTrain / PokiClass (fine 2026 tuition). Optical, insurance-agency, waste, water-tanker, banquet-dewan, car-wash leftover after Pitstop are dead.
+PEPATIH, MyPelajar, ADABS, Tenjin, SkoolBeez (ASIS school twins). HIRO (FMPOS petrol twin). Officio, BizAid, ezcosec (ACE CoSec twins). Hi Class (tuition leftover, crowded). Fitnow (XGEN gym twin). BuildTrack / BuildSpace / NiuAce (finer Bina Cloud / Speedbrick leftover). Tuis.my / SimTrain / PokiClass (fine 2026 tuition). Optical, insurance-agency, waste, water-tanker, banquet-dewan, car-wash leftover after Pitstop are dead.
 
 ## What this slice is not
 
