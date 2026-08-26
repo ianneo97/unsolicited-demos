@@ -8,7 +8,7 @@ Owner: Ian Neo (`ianneo97`). Outreach Gmail is off-limits unless Ian says send.
 
 Scores and sources: see [`ranked-slice8.md`](./ranked-slice8.md). Higher score = worse live site / better prospect.
 
-Area this slice: new seats slices 1–7 did not own. Confinement centre, petrol-station POS, SK/SMK school, lab LIS, umrah agency file. Not another clinic / JMB / tadika / F&B table / Yuran treasurer / WMS / gold / changer / maid / mosque / used-car / freight / guard / pest / temple / dialysis / koperasi / site diary / church / farm.
+Area this slice: new seats slices 1–7 did not own. Confinement centre, petrol-station POS, SK/SMK school, lab LIS, umrah agency file, construction PM leftover. Not another clinic / JMB / tadika / F&B table / Yuran treasurer / WMS / gold / changer / maid / mosque / used-car / freight / guard / pest / temple / dialysis / koperasi / site diary / church / farm.
 
 ---
 
@@ -83,12 +83,15 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 3. **asis/** — SK/SMK school: daftar murid → yuran reminder → peperiksaan
 4. **medist/** — lab LIS: register patient → tube label → verify result
 5. **dooums/** — umrah agency: daftar jemaah → group / visa file
+6. **binacloud/** — construction PM: assign task → stamp drawing → flag delay
 
 ### P1 — if P0 is solid (different seat, not a twin)
 
 6. **ace/** — company secretary: statutory register → MBRS AR export → deadline (KK street)
 7. **thinkis/** — hostel: assign bed → split utility → tenancy deadline (PJ street)
 8. **albatrozz/** — golf tee sheet only if Ian wants golf (Bangsar South; modern-enough site)
+9. **xgen/** — gym: sign member → PT pack → door check-in (Puchong street)
+10. **weddie/** — wedding guest: add guest → seat table → door check-in (phone only)
 
 ### Skip unless Ian says so
 
@@ -96,6 +99,8 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 - **hiro/** — same petrol seat as FMPOS
 - **officio/** / **bizaid/** / **ezcosec/** — same CoSec seat as ACE
 - **hiclass/** — tuition leftover, crowded with AOne / REMMU / Synorex / Tuis.my
+- **fitnow/** — same gym seat as XGEN
+- **buildtrack/** — finer Bina Cloud leftover
 - slice-4, slice-5, slice-6, slice-7 P0/P1 folders
 
 ---
@@ -137,6 +142,14 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 - **Desk:** one umrah counter. 8 jemaah (fake MY names, fake packages: 14-hari / 21-hari). Button: **Daftar jemaah** stamps a file no. Button: **Group** writes a departure date + package. Button: **Visa file** writes submitted / missing chip. Not TrevoFlow travel ERP. Not Pandaworks cinema. Not a generic CRM.
 - Accent: keep dark Geist; one umrah green is fine.
 
+
+### 6. Bina Cloud — `binacloud/`
+
+- Live site: https://www.bina.cloud/ (L-1-03A, Connezion Commercial, Persiaran IRC 3, IOI Resort, 62502 Putrajaya — on `/about-us`). Worst: demo counters leftover “Hours Wasted −10°C to 40°C” / “Hours Saved LED searchlight”; email placeholder maestronoob@gmail.com; typo “technolgy”; `/contact` is the homepage clone titled Home. Contact: info@bina.cloud · 03-8309 4732. **Do not use maestronoob@gmail.com.**
+- Sells: construction project OS — documents, drawing approval, task, site photo, schedule-delay flag.
+- **Desk:** one contractor board. 6 jobs (fake sites: taman / highway / majlis). Button: **Assign task** writes a worker + date. Button: **Stamp drawing** writes approved / rejected. Button: **Flag delay** writes days late that actually stores. Not eSiteView photo+GPS diary. Not REAMS facility CMMS. Not a generic Gantt.
+- Accent: keep dark Geist; one site orange is fine.
+
 ---
 
 ## P1 specs (short)
@@ -146,6 +159,10 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 **thinkis/** — https://www.think-is.com.my/hostel-management-system. Worst: 2000s frames + leftover laptop shop. **Desk:** 6 beds, assign → split utility MYR → tenancy deadline. PJ street. Not StayMii. Not JMB.
 
 **albatrozz/** — https://www.albatrozz.com/. Worst: 0+ counters; “We would be please”. **Desk:** 6 tee times, book → handicap stamp → green-fee MYR. Bangsar South. Only if Ian wants golf.
+
+**xgen/** — https://xgen.com.my/. Worst: contact@example.com mailto; about/contact 404. **Desk:** 6 members, sign → PT pack → door check-in. Puchong street. Not D-Clix.
+
+**weddie/** — https://weddie.my/. Worst: ©2023; no email. **Desk:** 6 guests, add → seat table → door check-in. Phone only. Not hotel PMS.
 
 ---
 
@@ -171,4 +188,4 @@ Leave `SLICE2.md` through `SLICE7.md` and their `ranked-slice*.md` in the repo. 
 
 ## Review (Sell, not the coding agent)
 
-Sell will open the live Pages and check: is it THEIR product, not a generic dashboard; does the one-line site problem appear in the note; do the controls work; is it mobile-usable. Push back if it looks like another clinic HIS, another JMB 30/60/90, another tadika morning, another F&B table, another Yuran treasurer board, another LeafClover WMS, another SisEmas gold counter, another EFOX changer, another maid file, another MasjidPro Jumaat board, another UCD VSO, another Buttonwood BL, another V-Patrol roster, another PestPro job, another Grasp pooja, another dialysis chair, another koperasi yuran, another site diary, another church cell, or another farm plot.
+Sell will open the live Pages and check: is it THEIR product, not a generic dashboard; does the one-line site problem appear in the note; do the controls work; is it mobile-usable. Push back if it looks like another clinic HIS, another JMB 30/60/90, another tadika morning, another F&B table, another Yuran treasurer board, another LeafClover WMS, another SisEmas gold counter, another EFOX changer, another maid file, another MasjidPro Jumaat board, another UCD VSO, another Buttonwood BL, another V-Patrol roster, another PestPro job, another Grasp pooja, another dialysis chair, another koperasi yuran, another site diary, another church cell, or another farm plot, or another eSiteView site diary.
