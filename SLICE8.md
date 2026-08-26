@@ -92,6 +92,7 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 8. **albatrozz/** — golf tee sheet only if Ian wants golf (Bangsar South; modern-enough site)
 9. **xgen/** — gym: sign member → PT pack → door check-in (Puchong street)
 10. **weddie/** — wedding guest: add guest → seat table → door check-in (phone only)
+11. **speedbrick/** — contractor claim: open job → progress claim → VO (PJ street). Same construction leftover family as Bina Cloud — only if Ian wants a second construction desk.
 
 ### Skip unless Ian says so
 
@@ -100,7 +101,8 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 - **officio/** / **bizaid/** / **ezcosec/** — same CoSec seat as ACE
 - **hiclass/** — tuition leftover, crowded with AOne / REMMU / Synorex / Tuis.my
 - **fitnow/** — same gym seat as XGEN
-- **buildtrack/** — finer Bina Cloud leftover
+- **buildtrack/** / **buildspace/** / **niuace/** — finer Bina Cloud / Speedbrick leftover
+- **treom/** — Johor waste IoT, thin, not KL
 - slice-4, slice-5, slice-6, slice-7 P0/P1 folders
 
 ---
@@ -163,6 +165,8 @@ Ship **P0** first, in one PR or a few commits on `main` (or a branch + PR). Then
 **xgen/** — https://xgen.com.my/. Worst: contact@example.com mailto; about/contact 404. **Desk:** 6 members, sign → PT pack → door check-in. Puchong street. Not D-Clix.
 
 **weddie/** — https://weddie.my/. Worst: ©2023; no email. **Desk:** 6 guests, add → seat table → door check-in. Phone only. Not hotel PMS.
+
+**speedbrick/** — https://speedbrick.com/. Worst: WP 5.3 + lorem ipsum accordion. **Desk:** 6 jobs, progress claim MYR → VO log. PJ SS2 street. Same construction leftover family as Bina Cloud — only if Ian wants two construction desks. Not eSiteView diary.
 
 ---
 
